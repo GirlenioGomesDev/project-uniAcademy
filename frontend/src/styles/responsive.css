@@ -1,0 +1,411 @@
+@media (max-width: 1500px) {
+  .nav {
+    gap: 18px;
+  }
+  .navlinks {
+    gap: 13px;
+    font-size: 13px;
+  }
+  .brand {
+    font-size: 25px;
+  }
+  .header-actions .button {
+    padding: 17px;
+    font-size: 13px;
+    gap: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(70px, 6vw, 100px);
+  }
+  .plan {
+    padding: 26px 22px;
+  }
+  .plan h3 {
+    font-size: 23px;
+  }
+  .badge {
+    font-size: 8px;
+  }
+  .plan li {
+    font-size: 14px;
+  }
+  .contact {
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: 20px;
+  }
+  .contact-card {
+    padding: 22px;
+  }
+  .contact-card a,
+  .contact-card span {
+    font-size: 13px;
+  }
+}
+@media (max-width: 1100px) {
+  .menu {
+    display: block;
+  }
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 95px;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    background: white;
+    border-bottom: 1px solid #ded7e4;
+    padding: 24px 5%;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 16px;
+  }
+  .navlinks.open {
+    display: flex;
+  }
+  .header-actions {
+    display: none;
+  }
+  .contact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .contact > div:first-child {
+    grid-column: 1 / -1;
+  }
+  .hero h1 span {
+    white-space: normal;
+  }
+  .schedule-layout {
+    grid-template-columns: 0.8fr 1.3fr;
+  }
+  .schedule-card {
+    gap: 16px;
+    padding: 23px;
+  }
+  .schedule-card > strong {
+    font-size: 29px;
+  }
+  .schedule-card b {
+    font-size: 21px;
+  }
+  .schedule-layout small {
+    font-size: 13px;
+  }
+  .cta-layout > div:last-child {
+    min-width: 290px;
+  }
+}
+@media (max-width: 700px) {
+  .hero h1 span {
+    white-space: normal;
+  }
+  .hero h1 {
+    font-size: clamp(49px, 12.6vw, 70px);
+  }
+  .hero .hero-note {
+    font-size: 13px;
+  }
+  .hero-content {
+    padding-bottom: 45px;
+  }
+  .schedule-layout,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+  .contact > div:first-child {
+    grid-column: auto;
+  }
+  .schedule-day-heading h3 {
+    font-size: 26px;
+  }
+  .schedule-card {
+    gap: 14px;
+    padding: 20px 16px;
+  }
+  .schedule-card > strong {
+    font-size: 27px;
+  }
+  .schedule-card b {
+    font-size: 18px;
+  }
+  .schedule-card > svg {
+    width: 19px;
+  }
+  .schedule-card small {
+    font-size: 12px;
+  }
+  .schedule-cards {
+    gap: 20px;
+  }
+  .hours p {
+    font-size: 16px;
+  }
+  .faq h2 {
+    max-width: none;
+  }
+  summary {
+    font-size: 17px;
+  }
+  details p {
+    font-size: 15px;
+  }
+  .cta-layout > div:last-child {
+    min-width: 0;
+  }
+  .cta-layout .button {
+    margin-top: 25px;
+  }
+  .gallery h3 {
+    font-size: 17px;
+  }
+  .gallery p {
+    font-size: 13px;
+  }
+  .map-marker {
+    left: 19%;
+  }
+  .map-marker .brand {
+    font-size: 18px;
+  }
+  .plan h3 {
+    font-size: 27px;
+  }
+  .badge {
+    font-size: 10px;
+  }
+  .plan li {
+    font-size: 16px;
+  }
+  .footer-grid p {
+    font-size: 15px;
+  }
+  .footer-grid nav {
+    font-size: 14px;
+  }
+  .footer-bottom small {
+    font-size: 12px;
+  }
+}
+@media (max-width: 1100px) {
+  .navlinks {
+    gap: 12px;
+    font-size: 12px;
+  }
+  .nav-cta {
+    display: none;
+  }
+  .four-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about,
+  .schedule-layout {
+    gap: 35px;
+  }
+  .hero-location {
+    display: none;
+  }
+  .contact {
+    grid-template-columns: 1.3fr 1fr 1fr;
+  }
+  .contact h2 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 700px) {
+  html {
+    scroll-padding-top: 76px;
+  }
+  .container {
+    width: 89%;
+  }
+  .section {
+    padding: 58px 0;
+  }
+  .nav {
+    min-height: 75px;
+  }
+  .brand {
+    font-size: 23px;
+  }
+  .brand img {
+    width: 38px;
+    height: 38px;
+  }
+  .menu {
+    display: block;
+  }
+  .navlinks {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-bottom: 1px solid #ded7e4;
+    padding: 20px 6%;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 16px;
+  }
+  .navlinks.open {
+    display: flex;
+  }
+  .hero {
+    min-height: 650px;
+    background-position: 65% center;
+  }
+  .hero-content {
+    padding-top: 50px;
+  }
+  .hero h1 {
+    font-size: 57px;
+    letter-spacing: -2px;
+    margin: 28px 0;
+  }
+  .hero p {
+    font-size: 16px;
+  }
+  .actions {
+    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .actions .button {
+    font-size: 13px;
+  }
+  .info-grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .info-bar {
+    padding: 25px 0;
+  }
+  .about,
+  .schedule-layout,
+  .faq,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .about img {
+    height: 320px;
+  }
+  .about h2 {
+    margin-top: 20px;
+  }
+  .section-head {
+    display: block;
+  }
+  .section-head > p {
+    margin-top: 20px;
+  }
+  .three-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .three-grid h3 {
+    font-size: 22px;
+  }
+  .three-grid p {
+    font-size: 15px;
+  }
+  .four-grid {
+    grid-template-columns: 1fr;
+  }
+  .modalities {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 27px 16px;
+  }
+  .modalities img {
+    height: 155px;
+  }
+  .modalities h3 {
+    font-size: 20px;
+  }
+  .modalities small {
+    font-size: 11px;
+  }
+  .modalities p {
+    font-size: 13px;
+  }
+  .plan {
+    padding: 28px;
+  }
+  .plan .terms {
+    min-height: 0;
+  }
+  .price strong {
+    font-size: 60px;
+  }
+  .plan ul {
+    margin-bottom: 0;
+  }
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+  .gallery img {
+    height: 170px;
+  }
+  .gallery figure:first-child img {
+    height: 250px;
+  }
+  .gallery h3 {
+    font-size: 17px;
+  }
+  .gallery p {
+    font-size: 12px;
+  }
+  .contact {
+    grid-template-columns: 1fr;
+  }
+  .contact h2 {
+    font-size: 36px;
+  }
+  .contact-card {
+    padding: 24px;
+  }
+  .cta-layout {
+    display: block;
+  }
+  .cta h2 {
+    font-size: 35px;
+  }
+  .cta .button {
+    margin-top: 24px;
+  }
+  .footer-grid {
+    gap: 30px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+  }
+  .map-art {
+    height: 300px;
+  }
+  .map-marker {
+    left: 15%;
+  }
+  .filters {
+    flex-wrap: wrap;
+  }
+  .filters label {
+    min-width: 130px;
+  }
+  dialog {
+    padding: 30px 24px;
+  }
+  .desktop {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "uniacademy",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n API,WEB \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w frontend",
+    "test": "npm test -w backend",
+    "format": "prettier --write frontend/src frontend/vite.config.js backend/src backend/test",
+    "format:check": "prettier --check frontend/src frontend/vite.config.js backend/src backend/test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "prettier": "^3.9.10"
+  }
+}

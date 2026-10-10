@@ -1,0 +1,110 @@
+.skeleton {
+  height: 330px;
+  border-radius: 16px;
+  background: linear-gradient(100deg, #e9e2ee 30%, #f5f0f8 50%, #e9e2ee 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+.error-panel {
+  padding: 25px;
+  border: 1px solid #d9b5cb;
+  background: #f7edf2;
+  border-radius: 12px;
+}
+.error-panel .button {
+  margin-top: 15px;
+}
+.error {
+  color: #b12550;
+  font-size: 14px;
+}
+dialog {
+  border: 0;
+  border-radius: 20px;
+  padding: 38px;
+  width: min(510px, 92vw);
+  max-height: 90vh;
+  color: #211e25;
+  box-shadow: 0 30px 100px #0006;
+}
+dialog::backdrop {
+  background: #100b19b8;
+  backdrop-filter: blur(4px);
+}
+dialog h2 {
+  font-size: 34px;
+  margin: 20px 0;
+}
+dialog label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 17px;
+}
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d5cbdc;
+  border-radius: 7px;
+  background: white;
+  margin-top: 7px;
+  color: #211e25;
+}
+input:focus,
+select:focus {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.modal-close {
+  position: absolute;
+  right: 17px;
+  top: 17px;
+  border: 0;
+  background: none;
+}
+.consent {
+  display: flex !important;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.6;
+}
+.consent input {
+  width: 16px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  accent-color: var(--purple);
+}
+dialog form > .button {
+  width: 100%;
+  margin: 20px 0 12px;
+}
+.skip {
+  position: fixed;
+  left: 10px;
+  top: -100px;
+  z-index: 100;
+  background: #fff;
+  padding: 10px;
+}
+.skip:focus {
+  top: 10px;
+}
+:focus-visible {
+  outline: 3px solid #a858db;
+  outline-offset: 4px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}

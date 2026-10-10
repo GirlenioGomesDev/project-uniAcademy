@@ -1,0 +1,48 @@
+header {
+  background: #fff;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #eee9f1;
+  position: relative;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: clamp(95px, 6.3vw, 121px);
+  gap: 25px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  letter-spacing: -1px;
+  font-weight: 800;
+  white-space: nowrap;
+  font-size: clamp(25px, 1.8vw, 35px);
+}
+.brand img {
+  border-radius: 8px;
+  width: 52px;
+  height: 52px;
+}
+.brand-sub {
+  display: block;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-size: 10px;
+}
+.navlinks {
+  display: flex;
+  gap: clamp(15px, 1.4vw, 27px);
+  font-size: clamp(13px, 0.95vw, 18px);
+}
+.navlinks a:hover {
+  color: var(--purple);
+}
+.menu {
+  display: none;
+  background: none;
+  border: 0;
+}
