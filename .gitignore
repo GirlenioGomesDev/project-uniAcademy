@@ -7,3 +7,5 @@ coverage/
 backup_uniacademy.sql
 
 backup_uniacademy.sql
+
+backend/.env.local.backup
