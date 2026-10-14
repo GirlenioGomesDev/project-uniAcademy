@@ -3,3 +3,7 @@ dist/
 .env
 coverage/
 *.log
+
+backup_uniacademy.sql
+
+backup_uniacademy.sql
