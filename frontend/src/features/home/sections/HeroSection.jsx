@@ -35,15 +35,7 @@ export default function HeroSection({ onTrial }) {
           <Check size={20} /> Para iniciantes e para quem quer recomeçar.
         </p>
         <div className="hero-location">
-          <img src="/logo.jpg" alt="" />
-          <div>
-            <strong>UniAcademy • Recife</strong>
-            <small>
-              Pernambuco
-              <br />
-              Uma academia. Muitas possibilidades.
-            </small>
-          </div>
+          <img className="hero-logo" src="/logo.jpg" alt="Logo da UniAcademy" />
         </div>
       </div>
     </section>

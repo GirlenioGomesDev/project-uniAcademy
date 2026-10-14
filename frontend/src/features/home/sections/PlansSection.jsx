@@ -6,7 +6,6 @@ export default function PlansSection({ data, error, onTrial }) {
     <section id="planos" className="section plans-section">
       <div className="container">
         <SectionTitle
-          number="04"
           label="PLANOS SEM COMPLICAÇÃO"
           title="Invista no seu próximo passo."
           text="Preços acessíveis, escolhas claras. Sem taxa de adesão e com benefícios para cada rotina."

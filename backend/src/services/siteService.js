@@ -1,19 +1,22 @@
 import { AppError } from '../middleware/errors.js';
-export function createSiteService(repository, whatsappNumber) {
+import { demoContact } from '../../../shared/siteCatalog.js';
+export function createSiteService(repository, whatsappNumber, { demoMode = false } = {}) {
   return {
     async siteData() {
       return {
         ...(await repository.getSiteData()),
         contact: {
-          city: 'Recife, Pernambuco',
-          whatsapp_url: whatsappNumber ? `https://wa.me/${whatsappNumber}` : null,
+          ...demoContact,
+          whatsapp_url: !demoMode && whatsappNumber ? `https://wa.me/${whatsappNumber}` : null,
         },
-        demo: true,
+        demo: demoMode,
       };
     },
     async trial(data) {
       if (!(await repository.modalityExists(data.preferred_modality)))
         throw new AppError(400, 'INVALID_MODALITY', 'Escolha uma modalidade disponível.');
+      if (demoMode)
+        return { id: null, status: 'demo', demo: true, stored: false, whatsapp_url: null };
       if (!whatsappNumber)
         throw new AppError(503, 'CONTACT_NOT_CONFIGURED', 'Contato indisponível.');
       const id = await repository.createTrial(data);
@@ -26,7 +29,7 @@ export function createSiteService(repository, whatsappNumber) {
     },
     async health() {
       await repository.health();
-      return { status: 'ok', database: 'connected' };
+      return { status: 'ok', database: demoMode ? 'demo' : 'connected' };
     },
   };
 }

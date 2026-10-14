@@ -1,15 +1,27 @@
 import { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Clock3 } from 'lucide-react';
 import ScheduleTable from '../components/ScheduleTable';
+
+const days = [
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+  'Domingo',
+];
+const shortDays = ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB', 'DOM'];
 
 export default function ScheduleSection({ schedules, error, onTrial }) {
   const [expanded, setExpanded] = useState(false);
-  const classes = schedules?.filter((entry) => entry.weekday === 2) || [];
+  const [day, setDay] = useState(2);
+  const classes = schedules?.filter((entry) => entry.weekday === day) || [];
   return (
     <section id="horarios" className="dark section">
       <div className="container schedule-layout">
         <div>
-          <span className="eyebrow">05 / CABE NA SUA ROTINA</span>
+          <span className="eyebrow">CABE NA SUA ROTINA</span>
           <h2>
             O melhor
             <br />
@@ -31,25 +43,39 @@ export default function ScheduleSection({ schedules, error, onTrial }) {
           </div>
           <small>Musculação livre durante todo o funcionamento. A equipe orienta no salão.</small>
         </div>
-        <div>
+        <div className="schedule-panel">
           <div className="schedule-day-heading">
-            <h3>Na terça-feira</h3>
-            <span className="day-badge">TER</span>
+            <h3>{days[day - 1]}</h3>
+            <Clock3 className="accent" size={28} />
+          </div>
+          <div className="day-tabs" aria-label="Escolher dia da semana">
+            {shortDays.map((label, index) => (
+              <button
+                key={label}
+                className={day === index + 1 ? 'active' : ''}
+                aria-pressed={day === index + 1}
+                onClick={() => setDay(index + 1)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           {!schedules ? (
             <p role="status">
-              {error ? 'Horários indisponíveis no momento.' : 'Carregando horários…'}
+              {error ? 'Não foi possível consultar a grade.' : 'Carregando horários…'}
             </p>
           ) : (
             <div className="schedule-cards">
-              <button className="schedule-card" onClick={onTrial}>
-                <strong>07:00</strong>
-                <span>
-                  <b>Musculação</b>
-                  <small>Orientação da equipe • Durante todo o funcionamento</small>
-                </span>
-                <ArrowUpRight />
-              </button>
+              {day <= 6 && (
+                <button className="schedule-card" onClick={onTrial}>
+                  <strong>{day === 6 ? '08–14h' : '06–23h'}</strong>
+                  <span>
+                    <b>Musculação</b>
+                    <small>Acesso livre • orientação da equipe</small>
+                  </span>
+                  <ArrowUpRight />
+                </button>
+              )}
               {classes.map((entry) => (
                 <button key={entry.id} className="schedule-card" onClick={onTrial}>
                   <strong>{entry.time_slot}</strong>
@@ -62,6 +88,13 @@ export default function ScheduleSection({ schedules, error, onTrial }) {
                   <ArrowUpRight />
                 </button>
               ))}
+              {!classes.length && (
+                <p className="schedule-empty" role="status">
+                  {day === 7
+                    ? 'Domingo é dia de descanso. Voltamos na segunda!'
+                    : 'Sem aulas coletivas neste dia. Você pode treinar musculação.'}
+                </p>
+              )}
             </div>
           )}
           <button
@@ -73,18 +106,11 @@ export default function ScheduleSection({ schedules, error, onTrial }) {
             {expanded ? 'Recolher grade completa' : 'Ver grade completa e filtros'}{' '}
             <ArrowUpRight size={20} />
           </button>
-          {expanded && (
-            <div id="full-schedule">
-              {schedules ? (
-                <ScheduleTable schedules={schedules} />
-              ) : (
-                <p role="status">Aguarde o carregamento do catálogo.</p>
-              )}
-            </div>
-          )}
+          <div id="full-schedule" hidden={!expanded}>
+            {expanded && schedules && <ScheduleTable schedules={schedules} />}
+          </div>
           <small className="schedule-disclaimer">
-            Horários demonstrativos, sujeitos a ajustes. Consulte a equipe sobre a disponibilidade
-            das turmas.
+            Grade demonstrativa. Solicite uma aula para consultar a disponibilidade.
           </small>
         </div>
       </div>

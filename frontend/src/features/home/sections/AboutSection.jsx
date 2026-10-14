@@ -9,7 +9,7 @@ export default function AboutSection() {
           <figcaption>Do primeiro treino à sua próxima conquista.</figcaption>
         </figure>
         <div>
-          <span className="eyebrow">01 / NOSSA ESSÊNCIA</span>
+          <span className="eyebrow">NOSSA ESSÊNCIA</span>
           <h2>Seu ritmo é o nosso ponto de partida.</h2>
           <p className="muted">
             A UniAcademy nasce como uma proposta para tornar o movimento mais acessível em Recife,

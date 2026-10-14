@@ -82,9 +82,11 @@ export const openapi = swaggerJsdoc({
         TrialResult: {
           type: 'object',
           properties: {
-            id: { type: 'integer' },
-            status: { type: 'string', enum: ['pending'] },
-            whatsapp_url: { type: 'string', format: 'uri' },
+            id: { type: 'integer', nullable: true },
+            status: { type: 'string', enum: ['pending', 'demo'] },
+            demo: { type: 'boolean' },
+            stored: { type: 'boolean' },
+            whatsapp_url: { type: 'string', format: 'uri', nullable: true },
           },
         },
         SiteData: {
@@ -107,7 +109,7 @@ export const openapi = swaggerJsdoc({
           type: 'object',
           properties: {
             status: { type: 'string', enum: ['ok'] },
-            database: { type: 'string', enum: ['connected'] },
+            database: { type: 'string', enum: ['connected', 'demo'] },
           },
         },
       },
@@ -131,6 +133,10 @@ export const openapi = swaggerJsdoc({
           summary: 'Registra interesse e gera link oficial wa.me',
           requestBody: { required: true, ...json(ref('TrialInput')) },
           responses: {
+            200: {
+              description: 'Simulação demonstrativa sem persistência ou envio',
+              ...json(ref('TrialResult')),
+            },
             201: {
               description: 'Solicitação persistida, pendente de confirmação',
               ...json(ref('TrialResult')),

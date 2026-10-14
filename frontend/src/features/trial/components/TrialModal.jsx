@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
 import { X, ArrowUpRight, CheckCircle } from 'lucide-react';
 import useTrialRequest from '../hooks/useTrialRequest';
-export default function TrialModal({ modalities, onClose }) {
+import PrivacyNotice from '../../../components/ui/PrivacyNotice';
+export default function TrialModal({ modalities, onClose, demo = false }) {
   const dialog = useRef(null);
-  const { state, error, result, submit } = useTrialRequest();
+  const { state, error, result, submit } = useTrialRequest(demo);
   useEffect(() => {
     dialog.current.showModal();
     const previous = document.body.style.overflow;
@@ -30,15 +31,28 @@ export default function TrialModal({ modalities, onClose }) {
         <div role="status">
           <CheckCircle className="accent" />
           <p>
-            Solicitação #{result.id} registrada. A equipe confirma a disponibilidade pelo WhatsApp.
+            {result.demo
+              ? 'Simulação concluída. Nenhum dado foi armazenado ou enviado ao WhatsApp.'
+              : `Solicitação #${result.id} registrada. A equipe confirma a disponibilidade pelo WhatsApp.`}
           </p>
-          <a className="button primary" href={result.whatsapp_url} target="_blank" rel="noreferrer">
-            Continuar no WhatsApp <ArrowUpRight />
-          </a>
+          {result.whatsapp_url && (
+            <a
+              className="button primary"
+              href={result.whatsapp_url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Continuar no WhatsApp <ArrowUpRight />
+            </a>
+          )}
         </div>
       ) : (
         <form onSubmit={submit}>
-          <p className="muted">Gratuita. Sem compromisso. Escolha sua modalidade.</p>
+          <p className="muted">
+            {demo
+              ? 'Demonstração: use dados fictícios. O formulário simula o envio sem armazenar ou transmitir suas informações.'
+              : 'Gratuita. Sem compromisso. Escolha sua modalidade.'}
+          </p>
           <label>
             Nome completo
             <input name="client_name" autoComplete="name" required minLength={3} maxLength={120} />
@@ -60,7 +74,7 @@ export default function TrialModal({ modalities, onClose }) {
           </label>
           <label>
             Modalidade
-            <select name="preferred_modality" required>
+            <select name="preferred_modality" aria-label="Modalidade" required>
               <option value="">Selecione</option>
               {modalities.map((m) => (
                 <option key={m.id}>{m.name}</option>
@@ -72,13 +86,21 @@ export default function TrialModal({ modalities, onClose }) {
             Autorizo o uso dos dados para atender esta solicitação. Consulte a política de
             privacidade no rodapé.
           </label>
+          <details className="form-privacy">
+            <summary>Leia a política de privacidade</summary>
+            <PrivacyNotice />
+          </details>
           {error && (
             <p className="error" role="alert">
               {error}
             </p>
           )}
           <button className="button primary" disabled={state === 'loading'}>
-            {state === 'loading' ? 'Enviando…' : 'Solicitar aula experimental'}{' '}
+            {state === 'loading'
+              ? 'Enviando…'
+              : demo
+                ? 'Simular solicitação'
+                : 'Solicitar aula experimental'}{' '}
             <ArrowUpRight size={18} />
           </button>
           <small>A solicitação não garante uma reserva.</small>

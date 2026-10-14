@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import request from 'supertest';
 import { createApp } from '../src/app.js';
 import { createSiteService } from '../src/services/siteService.js';
+import { demoRepository } from '../src/repositories/demoRepository.js';
 const payload = {
   client_name: 'Maria Silva',
   phone: '81999999999',
@@ -101,4 +102,38 @@ test('limite de solicitações impede abuso', async () => {
     await request(f.app).post('/api/trial-request').send(payload).expect(201);
   await request(f.app).post('/api/trial-request').send(payload).expect(429);
   assert.equal(f.calls(), 10);
+});
+
+test('documentação desativada não publica contratos nem interface', async () => {
+  const service = createSiteService({ health: async () => {} }, '');
+  const app = createApp(service, { documentationEnabled: false });
+  await request(app).get('/api/openapi.json').expect(404);
+  await request(app).get('/api/docs').expect(404);
+  await request(app).get('/api/health').expect(200);
+});
+
+test('catálogo demonstrativo mantém planos e grade completos sem MySQL', async () => {
+  const app = createApp(createSiteService(demoRepository, '', { demoMode: true }));
+  const response = await request(app).get('/api/site-data').expect(200);
+  assert.equal(response.body.demo, true);
+  assert.deepEqual(
+    response.body.plans.map((plan) => plan.name),
+    ['Light', 'Plus', 'MegaPlus', 'Day-use'],
+  );
+  assert.equal(response.body.modalities.length, 4);
+  assert.equal(response.body.schedules.length, 10);
+});
+
+test('simulação com contato configurado também não persiste nem gera redirecionamento', async () => {
+  const app = createApp(createSiteService(demoRepository, '5581999999999', { demoMode: true }));
+  const response = await request(app).post('/api/trial-request').send(payload).expect(200);
+  assert.equal(response.body.stored, false);
+  assert.equal(response.body.whatsapp_url, null);
+  assert.equal(response.body.id, null);
+});
+
+test('saúde demonstrativa não alega conexão real com banco', async () => {
+  const app = createApp(createSiteService(demoRepository, '', { demoMode: true }));
+  const response = await request(app).get('/api/health').expect(200);
+  assert.equal(response.body.database, 'demo');
 });

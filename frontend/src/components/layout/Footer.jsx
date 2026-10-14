@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import Brand from '../ui/Brand';
-import { navigationLinks as links } from '../../config/navigation';
+import PrivacyNotice from '../ui/PrivacyNotice';
+import { navigationLinks } from '../../config/navigation';
+import { demoContact } from '../../../../shared/siteCatalog.js';
 
 export default function Footer({ contact }) {
-  const [privacy, setPrivacy] = useState(false);
+  const details = { ...demoContact, ...contact };
   return (
     <footer className="dark">
       <div className="container">
@@ -15,11 +16,14 @@ export default function Footer({ contact }) {
               <br />
               Recife • Pernambuco.
             </p>
+            <p className="footer-notice">
+              Projeto acadêmico de maturidade de desenvolvimento de software.
+            </p>
           </div>
           <div>
             <strong>Explore a UniAcademy</strong>
             <nav aria-label="Rodapé">
-              {links.map(([name, id]) => (
+              {navigationLinks.map(([name, id]) => (
                 <a key={id} href={`#${id}`}>
                   {name}
                 </a>
@@ -28,45 +32,41 @@ export default function Footer({ contact }) {
           </div>
           <div>
             <strong>Vamos conversar</strong>
-            <p className="muted">
-              WhatsApp:{' '}
-              {contact?.whatsapp_url ? (
-                <a href={contact.whatsapp_url} target="_blank" rel="noreferrer">
-                  fale com a equipe
-                </a>
-              ) : (
-                'a confirmar'
-              )}
-              <br />
-              Telefone: a confirmar
-              <br />
-              Instagram: a confirmar
-            </p>
-            <button
-              className="text-button"
-              onClick={() => setPrivacy(!privacy)}
-              aria-expanded={privacy}
-            >
-              Privacidade e dados
-            </button>
+            <dl className="footer-contact">
+              <div>
+                <dt>Telefone</dt>
+                <dd>{details.phone}</dd>
+              </div>
+              <div>
+                <dt>WhatsApp</dt>
+                <dd>{details.whatsapp}</dd>
+              </div>
+              <div>
+                <dt>Instagram</dt>
+                <dd>{details.instagram}</dd>
+              </div>
+            </dl>
+            <small className="footer-notice">Contatos fictícios para demonstração.</small>
           </div>
         </div>
-        {privacy && (
-          <div className="privacy" id="privacidade">
-            <h3>Política de privacidade • versão demonstrativa</h3>
+        <details className="legal-details" id="privacidade">
+          <summary>Privacidade e proteção de dados • LGPD</summary>
+          <PrivacyNotice />
+        </details>
+        <details className="legal-details">
+          <summary>Termos de uso da demonstração</summary>
+          <div className="privacy-content">
             <p>
-              Nome, telefone, e-mail e modalidade são usados para atender sua solicitação. O envio
-              exige sua autorização. Ao continuar para o WhatsApp, seu nome e modalidade são
-              enviados ao serviço externo. Não coletamos dados de saúde. O responsável e canal de
-              direitos serão definidos pela academia antes da operação comercial. Proposta de
-              retenção: excluir solicitações inativas após 90 dias; a rotina operacional deve ser
-              configurada pelo responsável. Não envie dados reais em ambientes de demonstração.
+              Este site apresenta um projeto acadêmico. Valores, contatos, endereço, profissionais e
+              horários são demonstrativos. Nenhuma solicitação de teste confirma matrícula, cobrança
+              ou reserva. Imagens ilustrativas não representam uma unidade física real. O modo
+              demonstrativo não envia dados pessoais.
             </p>
           </div>
-        )}
+        </details>
         <div className="footer-bottom">
-          <small>Projeto demonstrativo • Dados e imagens ilustrativos</small>
-          <small>© 2026 UniAcademy • Desenvolvido com cuidado.</small>
+          <small>Projeto acadêmico • Dados e imagens ilustrativos</small>
+          <small>© {new Date().getFullYear()} UniAcademy • Feito para evoluir.</small>
         </div>
       </div>
     </footer>

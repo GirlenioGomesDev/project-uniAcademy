@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-family: 'Manrope Variable', Arial, Helvetica, sans-serif;
   color: #211e25;
   background: #f8f7fa;
   font-synthesis: none;
@@ -50,6 +50,12 @@ h3,
 p,
 figure {
   margin: 0;
+}
+h1,
+h2,
+h3,
+.brand {
+  font-family: 'Sora Variable', 'Manrope Variable', sans-serif;
 }
 h2 {
   font-weight: 750;
