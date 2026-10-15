@@ -1,330 +1,411 @@
+# VALIDAÇÃO E EVIDÊNCIAS — UNIACADEMY
 
-# Validação e evidências — UniAcademy
+**Responsável:** Girlenio Gomes  
+**Área:** Back-end, banco de dados e integração  
+**Data:** 14/10/2026  
+**Projeto:** UniAcademy
 
-## 1. Reorganização visual — 10/10/2026
+## 1. Objetivo
 
-O frontend foi organizado em layout, UI, features, seções, hooks, dados e estilos.
+Validar o funcionamento do back-end e do banco de dados MySQL do UniAcademy, verificando conexão real, persistência de informações, relacionamentos entre tabelas, tratamento de erros, integração com a API e publicação na nuvem.
 
-O backend foi formatado sem alterar os contratos existentes.
+Os testes foram realizados inicialmente em ambiente local e posteriormente utilizando o MySQL hospedado na Aiven e o back-end publicado no Render.
 
-Resultados:
-- `npm test`: 10 testes aprovados.
-- `npm run build`: compilação concluída.
-- `npm run format:check`: aprovado.
+## 2. Tecnologias utilizadas
 
-A interface foi comparada estruturalmente com as referências fornecidas, sem validação visual em navegador nessa execução.
+- Node.js 24 e Express
+- MySQL 8.4 — Aiven
+- mysql2
+- React e Vite
+- Git e GitHub
+- Render — hospedagem do back-end
+- SSL/TLS — comunicação segura com o banco de dados
+- PowerShell — execução dos testes
 
-As fotografias são ilustrativas.
+## 3. Configuração do banco de dados
 
-## 2. Execução inicial — 10/10/2026
+O banco `uniacademy_db` foi criado no MySQL da Aiven.
 
-Resultados:
-- 10 testes automatizados aprovados.
-- 0 falhas.
-- Build de produção concluído.
-- Auditoria do npm: 0 vulnerabilidades.
-- Ambiente utilizado: Node.js 24.21.0.
+O arquivo `database/schema.sql` foi importado utilizando a codificação `utf8mb4` para preservar os caracteres especiais.
 
-Nessa execução inicial, não foi possível testar o MySQL real.
+As seguintes tabelas foram criadas:
 
-Essa limitação foi posteriormente tratada durante a validação local de 14/10/2026.
+| Tabela | Finalidade |
+|---|---|
+| plans | Armazenar os planos da academia |
+| modalities | Armazenar as modalidades disponíveis |
+| schedules | Armazenar os horários das atividades |
+| trial_requests | Armazenar solicitações de aulas experimentais |
 
-## 3. Validação local — 14/10/2026
+### Resultado da verificação
 
-Responsável: Girlenio Gomes
+| Tabela | Registros iniciais |
+|---|---:|
+| plans | 4 |
+| modalities | 4 |
+| schedules | 10 |
+| trial_requests | 0 |
 
-Área: Backend, banco de dados e integração.
+**Resultado: APROVADO.**
 
-### 3.1 Ambiente utilizado
+## 4. Segurança e permissões
 
-- Sistema operacional: Windows.
-- Node.js: 24.19.0.
-- npm: 11.17.0.
-- MySQL Community Server: 26.7.0.
-- Backend: Node.js e Express.
-- Frontend: React e Vite.
-- Banco: uniacademy_db.
-- API local: http://localhost:3001.
-- Frontend local: http://localhost:5173.
+Foi criado o usuário `uniacademy_app` para utilização exclusiva pelo back-end.
 
-### 3.2 Configuração do MySQL
+As permissões concedidas foram:
 
-O banco uniacademy_db foi criado e configurado utilizando o arquivo database/schema.sql.
+- SELECT em `plans`.
+- SELECT em `modalities`.
+- SELECT em `schedules`.
+- INSERT em `trial_requests`.
 
-Foram identificadas as quatro tabelas:
+O usuário não possui permissões administrativas sobre o banco.
 
-- plans
-- modalities
-- schedules
-- trial_requests
+A conexão utiliza SSL, com validação do certificado CA disponibilizado pela Aiven.
 
-Consultas realizadas:
+As credenciais são armazenadas em variáveis de ambiente e não devem ser incluídas no repositório GitHub.
 
-SHOW TABLES;
+**Resultado: APROVADO.**
 
-SELECT id, name, price FROM plans;
+## 5. Integração entre Express e MySQL
 
-SELECT id, name FROM modalities;
+O back-end foi configurado para acessar o banco da Aiven utilizando as variáveis de ambiente.
 
-SELECT COUNT(*) FROM schedules;
+A conexão foi testada pelo endpoint:
 
-SELECT COUNT(*) FROM trial_requests;
-
-Resultados iniciais:
-
-- 4 planos cadastrados.
-- 4 modalidades cadastradas.
-- 10 horários cadastrados.
-- 0 solicitações experimentais.
-
-Situação: APROVADO.
-
-### 3.3 Permissões do banco de dados
-
-Foi configurado o usuário uniacademy_app com permissões específicas:
-
-- SELECT na tabela plans.
-- SELECT na tabela modalities.
-- SELECT na tabela schedules.
-- INSERT na tabela trial_requests.
-
-As permissões foram verificadas utilizando:
-
-SHOW GRANTS FOR 'uniacademy_app'@'localhost';
-
-Resultado: APROVADO.
-
-### 3.4 Conexão entre Express e MySQL
-
-O backend foi configurado utilizando variáveis de ambiente no arquivo backend/.env.
-
-A conexão foi validada pelo endpoint:
-
-GET /api/health
+`GET /api/health`
 
 Resposta obtida:
 
+```json
 {
   "status": "ok",
   "database": "connected"
 }
+```
 
-Resultado: APROVADO.
+O teste foi realizado tanto localmente quanto na API publicada no Render.
 
-### 3.5 Consulta dos dados pela API
+**Resultado: APROVADO.**
 
-Endpoint utilizado:
+## 6. Consulta dos dados reais
 
-GET /api/site-data
+O endpoint utilizado foi:
 
-A API retornou:
+`GET /api/site-data`
+
+URL pública:
+
+https://uniacademy-api.onrender.com/api/site-data
+
+A resposta apresentou:
 
 - 4 planos.
 - 4 modalidades.
 - 10 horários.
-- Informações de contato demonstrativas.
+- Dados de contato demonstrativos.
 
-Os dados foram apresentados corretamente pelo frontend React após as correções de codificação.
+Os nomes, descrições e benefícios foram retornados com a acentuação correta.
 
-Resultado: APROVADO.
+**Resultado: APROVADO.**
 
-### 3.6 Testes automatizados
+## 7. Persistência real dos dados
 
-Comando executado:
+Foi realizado um cadastro de teste utilizando uma requisição HTTP POST na API local, conectada ao MySQL da Aiven.
 
-npm test
+Endpoint:
 
-Resultados:
-
-- Total de testes: 10.
-- Aprovados: 10.
-- Falhas: 0.
-- Cancelados: 0.
-- Ignorados: 0.
-- Duração aproximada: 3,15 segundos.
-
-Cenários avaliados:
-
-1. Consulta do catálogo e saúde da API.
-2. Fluxo de persistência simulado e geração da URL.
-3. Rejeição de payload inválido.
-4. Rejeição de modalidade inexistente.
-5. Rejeição de cadastro sem contato configurado.
-6. Tratamento de erro de banco sem exposição de detalhes internos.
-7. Rejeição de origem CORS desconhecida.
-8. Tratamento de JSON malformado.
-9. Verificação do contrato OpenAPI.
-10. Limitação de solicitações por IP.
-
-Resultado: APROVADO.
-
-Observação: os testes automatizados utilizam repositório substituído e não executam consultas reais ao MySQL.
-
-### 3.7 Teste de persistência real
-
-Foi realizado um teste utilizando a função createTrial do Repository, conectada ao banco MySQL real.
+`POST /api/trial-request`
 
 Dados fictícios utilizados:
 
-- Nome: Cliente Teste.
-- Modalidade: Funcional.
-- Telefone e e-mail fictícios.
-- Status inicial: pending.
+| Campo | Valor |
+|---|---|
+| Nome | Cliente Teste UniAcademy |
+| Telefone | Número fictício |
+| E-mail | teste.uniacademy@example.com |
+| Modalidade | Musculação |
+| Consentimento | true |
 
-Resultado apresentado pelo Node.js:
+Resposta recebida:
 
-Cadastro salvo! ID: 1
+```json
+{
+  "id": 1,
+  "status": "pending",
+  "message": "Solicitação cadastrada com sucesso!"
+}
+```
 
-A persistência foi confirmada posteriormente no MySQL:
+Em seguida, foi realizada a consulta:
 
-SELECT id, client_name, preferred_modality, status
-FROM trial_requests;
+```sql
+SELECT
+    id,
+    client_name,
+    preferred_modality
+FROM trial_requests
+WHERE id = 1;
+```
 
 Resultado:
 
-| id | client_name | preferred_modality | status |
-|---|---|---|---|
-| 1 | Cliente Teste | Funcional | pending |
+| id | client_name | preferred_modality |
+|---|---|---|
+| 1 | Cliente Teste UniAcademy | Musculação |
 
-O registro fictício foi destinado à remoção após o teste.
+A consulta comprovou que o registro foi salvo no banco de dados real, e não apenas armazenado na memória do servidor.
 
-Resultado: APROVADO.
+Foi solicitado executar a exclusão controlada do registro fictício. A quantidade de linhas removidas não foi registrada na evidência apresentada.
 
-Esse procedimento comprovou o INSERT real realizado pelo Repository, mas não substitui o teste HTTP completo do formulário.
+**Resultado: APROVADO — persistência real comprovada.**
 
-### 3.8 Tratamento de falhas
+## 8. Validação dos relacionamentos
 
-Foi testada a tentativa de solicitação experimental sem número oficial de WhatsApp configurado.
+Foram identificados dois relacionamentos entre tabelas:
 
-O backend registrou:
+| Tabela de origem | Campo | Tabela referenciada |
+|---|---|---|
+| schedules | modality_name | modalities.name |
+| trial_requests | preferred_modality | modalities.name |
 
-CONTACT_NOT_CONFIGURED
+### Teste 1 — Solicitação com modalidade inexistente
 
-O sistema apresentou mensagem de indisponibilidade ao usuário.
+Foi executada uma tentativa de cadastro utilizando uma modalidade que não existe no banco.
 
-Essa situação ocorre porque o Service exige um número oficial antes de permitir a persistência pelo fluxo HTTP.
+Resultado:
 
-Resultado: comportamento esperado confirmado.
+`ERROR 1452 (23000): Cannot add or update a child row`
 
-Pendente: configurar o WhatsApp oficial e executar o fluxo completo de cadastro.
+O banco rejeitou o cadastro devido à restrição de chave estrangeira.
 
-### 3.9 Correção de codificação
+### Teste 2 — Horário com modalidade inexistente
 
-Durante a integração, foram identificados problemas de acentuação nos textos armazenados no banco de dados.
+Foi executada uma tentativa de inserir um horário associado a uma modalidade inexistente.
 
-Foi verificada a configuração de caracteres e utilizada a codificação utf8mb4.
+Resultado:
 
-Foram corrigidos:
+`ERROR 1452 (23000): Cannot add or update a child row`
 
-- Nomes das modalidades.
-- Descrições das modalidades.
-- Condições de pagamento.
-- Benefícios dos planos.
-- Resumos dos horários.
-- Nome da sala Estúdio.
+O banco rejeitou a operação.
 
-As correções foram verificadas por consultas SQL, valores hexadecimais e apresentação dos dados no site.
+Os dois testes foram realizados em transações encerradas com `ROLLBACK`.
 
-Resultado: APROVADO no ambiente local.
+**Resultado: APROVADO — integridade referencial validada.**
 
-Observação: as correções foram realizadas diretamente no banco local. Uma nova implantação deve importar os dados com a codificação UTF-8 correta.
+## 9. Validação das restrições do MySQL
 
-### 3.10 Compilação do frontend
+### Teste 3 — Plano com preço negativo
+
+Foi realizada uma tentativa de cadastrar um plano com preço de R$ -50,00.
+
+Resultado:
+
+`ERROR 3819 (HY000): Check constraint 'chk_price' is violated.`
+
+O banco impediu o cadastro.
+
+**Resultado: APROVADO.**
+
+### Teste 4 — Dia da semana inválido
+
+Foi realizada uma tentativa de cadastrar um horário utilizando `weekday = 9`.
+
+Resultado:
+
+`ERROR 3819 (HY000): Check constraint 'chk_weekday' is violated.`
+
+O banco impediu o cadastro de um dia fora do intervalo permitido.
+
+**Resultado: APROVADO.**
+
+Os testes utilizaram transações encerradas com `ROLLBACK`.
+
+## 10. Tratamento de falhas da API
+
+Foi enviada uma solicitação de cadastro contendo um e-mail inválido.
+
+Resposta HTTP:
+
+`400 Bad Request`
+
+Corpo da resposta:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Revise os campos informados.",
+    "details": [
+      {
+        "field": "email",
+        "message": "\"email\" must be a valid email"
+      }
+    ]
+  }
+}
+```
+
+O resultado confirmou que o back-end verifica as informações recebidas e rejeita entradas inválidas.
+
+Os testes automatizados também cobriram:
+
+- Modalidade inexistente.
+- JSON malformado.
+- Erro interno sem exposição de detalhes sensíveis.
+- Origem CORS não autorizada.
+- Limitação de requisições.
+
+**Resultado: APROVADO para os cenários executados.**
+
+## 11. Cadastro sem WhatsApp ou Instagram obrigatório
+
+O funcionamento do cadastro foi atualizado para que as solicitações sejam armazenadas diretamente no MySQL, sem exigir WhatsApp ou Instagram.
+
+O fluxo atualizado é:
+
+1. O aluno preenche o formulário.
+2. O React envia os dados para o back-end.
+3. O Express valida as informações.
+4. O MySQL armazena a solicitação.
+5. A API retorna o ID e a confirmação de cadastro.
+6. O formulário apresenta uma mensagem de sucesso.
+
+O campo de telefone do aluno continua sendo necessário para contato posterior.
+
+A alteração foi validada localmente por requisição HTTP e consulta direta ao banco.
+
+**Resultado: APROVADO localmente.**
+
+A publicação dessa mudança no Render ainda precisa ser confirmada.
+
+## 12. Testes automatizados
 
 Comando executado:
 
+```bash
+npm test
+```
+
+Resultados obtidos:
+
+| Indicador | Quantidade |
+|---|---:|
+| Total de testes | 10 |
+| Aprovados | 10 |
+| Falhas | 0 |
+| Cancelados | 0 |
+| Ignorados | 0 |
+
+Os testes verificaram:
+
+1. Consulta do catálogo e saúde da API.
+2. Cadastro com retorno de confirmação.
+3. Rejeição de dados inválidos.
+4. Rejeição de modalidade inexistente.
+5. Cadastro sem WhatsApp configurado.
+6. Proteção contra exposição de erros internos.
+7. Bloqueio de origem CORS desconhecida.
+8. Tratamento de JSON inválido.
+9. Disponibilidade dos contratos OpenAPI.
+10. Limitação de requisições.
+
+**Resultado: APROVADO.**
+
+Observação: os testes automatizados utilizam repositórios simulados. A persistência com MySQL real foi comprovada separadamente.
+
+## 13. Build do front-end
+
+Comando utilizado:
+
+```bash
 npm run build
+```
 
-Resultados:
+Resultado:
 
-- Vite 7.3.7.
-- 1603 módulos transformados.
-- Compilação concluída em 6,76 segundos.
-- Arquivos de produção gerados em frontend/dist.
+```text
+vite v7.3.7 building client environment for production...
+1603 modules transformed.
+built in 4.45s
+```
 
-Resultado: APROVADO.
+O React foi compilado com sucesso após as alterações no formulário.
 
-### 3.11 Teste visual e integração
+**Resultado: APROVADO.**
 
-O frontend foi iniciado e acessado pelo navegador.
+## 14. Publicação do back-end no Render
 
-Foram verificados:
+O back-end foi publicado no serviço `uniacademy-api`, utilizando a plataforma Render.
 
-- Apresentação da academia.
-- Planos e preços.
-- Modalidades.
-- Benefícios.
-- Horários.
-- Estrutura do site.
-- Formulário de aula experimental.
-- Carregamento dos dados provenientes da API.
+Configuração:
 
-Os textos corrigidos foram confirmados na interface.
+| Item | Valor |
+|---|---|
+| Hospedagem | Render |
+| Repositório | GirlenioGomesDev/project-uniAcademy |
+| Branch | main |
+| Build Command | npm ci |
+| Start Command | npm start -w backend |
+| Deploy automático | On Commit |
+| Banco conectado | MySQL Aiven |
+| SSL | Ativado |
 
-Resultado: integração de leitura APROVADA.
+URL:
 
-Não foram concluídos testes abrangentes de responsividade, acessibilidade e fluxo integral de solicitação.
+https://uniacademy-api.onrender.com
 
-## 4. Validações complementares pendentes
+O deploy inicial foi concluído com o status `Live`.
 
-### Backend e banco
+Foram validados os endpoints públicos:
 
-- Testar POST completo com WhatsApp oficial.
-- Confirmar persistência utilizando a rota HTTP.
-- Testar indisponibilidade real do MySQL.
-- Validar restrições de chave estrangeira.
-- Validar preço negativo e dia inválido.
-- Repetir a importação SQL com UTF-8 em ambiente novo.
-- Validar o backup por meio de restauração em ambiente isolado.
+- `GET /api/health`
+- `GET /api/site-data`
 
-### Frontend
+**Resultado: APROVADO para a versão publicada anteriormente.**
 
-- Testar larguras de 360, 768 e 1440 pixels.
-- Verificar navegação por teclado.
-- Testar abertura e fechamento do modal com Escape.
-- Validar estados de carregamento.
-- Testar filtros de horários.
-- Verificar tratamento de falhas HTTP.
-- Avaliar acessibilidade e contraste.
-- Testar o envio real para WhatsApp.
+As alterações posteriores no cadastro ainda precisam ser enviadas ao GitHub para atualização automática do Render.
 
-### Implantação online
+## 15. Integração com o front-end
 
-- Escolher hospedagem para o frontend.
-- Configurar hospedagem para o backend.
-- Configurar MySQL na nuvem.
-- Definir variáveis de ambiente.
-- Configurar CORS.
-- Configurar HTTPS.
-- Verificar conexão e persistência em produção.
-- Executar testes após a implantação.
+O back-end disponibiliza a seguinte URL base:
 
-## 5. Registro de aceite
+`https://uniacademy-api.onrender.com/api`
 
-Projeto: UniAcademy
+Para o front-end React/Vite, a configuração prevista é:
 
-Responsável técnico: Girlenio Gomes
+```env
+VITE_API_URL=https://uniacademy-api.onrender.com/api
+```
 
-Área: Backend, banco e integração
+Quando o front-end for publicado pela equipe, seu domínio deverá ser incluído na variável `CORS_ORIGINS` do Render.
 
-Data da validação: 14/10/2026
+A integração local de leitura foi validada.
 
-Ambiente: Desenvolvimento local
+A integração entre o front-end publicado e a API pública ainda depende da publicação realizada pelos colegas.
 
-Testes automatizados: 10 aprovados, 0 falhas
+## 16. Pendências finais
 
-Conexão Express/MySQL: Aprovada
+Antes de considerar o trabalho completamente encerrado, ainda precisamos:
 
-Consulta de dados reais: Aprovada
+- Conferir e atualizar a documentação Swagger/OpenAPI para refletir o cadastro sem WhatsApp.
+- Enviar as alterações locais para o GitHub.
+- Confirmar o deploy automático da versão atualizada no Render.
+- Testar o POST de cadastro na API pública.
+- Confirmar a remoção dos registros fictícios utilizados nos testes.
+- Verificar a restauração do backup em um banco isolado.
+- Adicionar ao CORS o domínio do front-end após sua publicação.
 
-Persistência direta pelo Repository: Aprovada
+Os testes com indisponibilidade real do banco devem ser realizados em ambiente controlado, sem interromper o serviço compartilhado.
 
-Compilação frontend: Aprovada
+## 17. Conclusão
 
-Integração de leitura React/Express/MySQL: Aprovada
+Os testes realizados demonstraram o funcionamento do MySQL real e sua integração com o back-end Express.
 
-Fluxo HTTP completo de cadastro: Pendente
+Foi possível comprovar a persistência de dados por requisição HTTP, a integridade dos relacionamentos, a aplicação de restrições do banco e o tratamento de entradas inválidas.
 
-Implantação online: Pendente
+Os dez testes automatizados foram aprovados e o build do React foi concluído sem erros.
 
-Decisão: Validação local parcial concluída. O sistema ainda necessita dos testes complementares e da configuração do ambiente de produção antes do aceite final.
+A infraestrutura do back-end já foi publicada e validada no Render, utilizando o MySQL da Aiven com conexão SSL.
+
+**Situação geral: requisitos principais de back-end, banco de dados e integração validados, com pendências de atualização da documentação da API, publicação da nova versão e verificações finais.**
