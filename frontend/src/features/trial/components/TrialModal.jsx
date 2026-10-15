@@ -35,16 +35,6 @@ export default function TrialModal({ modalities, onClose, demo = false }) {
               ? 'Simulação concluída. Nenhum dado foi armazenado ou enviado.'
               : `Solicitação #${result.id} registrada. Nossa equipe poderá entrar em contato pelos dados informados para confirmar a disponibilidade.`}
           </p>
-          {false && result.whatsapp_url && (
-            <a
-              className="button primary"
-              href={result.whatsapp_url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Continuar no WhatsApp <ArrowUpRight />
-            </a>
-          )}
         </div>
       ) : (
         <form onSubmit={submit}>
