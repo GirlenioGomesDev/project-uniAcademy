@@ -61,7 +61,7 @@ test('simulação não transmite dados e política fica disponível antes do env
   await expect(page.locator('.plans .plan')).toHaveCount(4);
   await page.locator('.hero').getByRole('button', { name: 'Solicitar aula experimental' }).click();
   await page.getByLabel('Nome completo').fill('Pessoa Teste');
-  await page.getByLabel('WhatsApp com DDD').fill('81999999999');
+  await page.getByLabel('Telefone com DDD').fill('81999999999');
   await page.getByLabel('E-mail', { exact: true }).fill('teste@example.com');
   await page.getByLabel('Modalidade', { exact: true }).selectOption({ label: 'Musculação' });
   await page.getByText('Leia a política de privacidade').click();
