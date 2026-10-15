@@ -16,7 +16,7 @@ export function createApp(
     env.WHATSAPP_NUMBER,
     { demoMode: env.DATA_SOURCE === 'demo' },
   ),
-  { documentationEnabled = env.NODE_ENV !== 'production' } = {},
+  { documentationEnabled = true } = {},
 ) {
   const app = express();
   app.disable('x-powered-by');
