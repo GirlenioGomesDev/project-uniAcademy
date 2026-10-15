@@ -1,14 +1,10 @@
-
 import mysql from 'mysql2/promise';
 import { readFileSync } from 'node:fs';
 import { env } from './env.js';
 
 const sslConfig = env.DB_SSL
   ? {
-      ca: readFileSync(
-        new URL('../../certs/aiven-ca.pem', import.meta.url),
-        'utf8'
-      ),
+      ca: readFileSync(new URL('../../certs/aiven-ca.pem', import.meta.url), 'utf8'),
       rejectUnauthorized: true,
     }
   : undefined;

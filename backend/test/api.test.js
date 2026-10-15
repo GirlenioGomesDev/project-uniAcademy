@@ -1,4 +1,3 @@
-
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import request from 'supertest';
@@ -70,19 +69,13 @@ test('GET catálogo consolidado e saúde', async () => {
 test('POST cadastra solicitação e retorna confirmação', async () => {
   const f = fixture();
 
-  const r = await request(f.app)
-    .post('/api/trial-request')
-    .send(payload)
-    .expect(201);
+  const r = await request(f.app).post('/api/trial-request').send(payload).expect(201);
 
   assert.equal(f.calls(), 1);
   assert.equal(r.body.id, 42);
   assert.equal(r.body.status, 'pending');
 
-  assert.equal(
-    r.body.message,
-    'Solicitação cadastrada com sucesso!'
-  );
+  assert.equal(r.body.message, 'Solicitação cadastrada com sucesso!');
 
   assert.equal(r.body.whatsapp_url, undefined);
 });
@@ -111,10 +104,7 @@ test('modalidade inválida rejeitada', async () => {
     modalityExists: async () => false,
   });
 
-  await request(f.app)
-    .post('/api/trial-request')
-    .send(payload)
-    .expect(400);
+  await request(f.app).post('/api/trial-request').send(payload).expect(400);
 
   assert.equal(f.calls(), 0);
 });
@@ -124,19 +114,13 @@ test('modalidade inválida rejeitada', async () => {
 test('cadastro funciona sem WhatsApp configurado', async () => {
   const f = fixture({}, '');
 
-  const r = await request(f.app)
-    .post('/api/trial-request')
-    .send(payload)
-    .expect(201);
+  const r = await request(f.app).post('/api/trial-request').send(payload).expect(201);
 
   assert.equal(f.calls(), 1);
   assert.equal(r.body.id, 42);
   assert.equal(r.body.status, 'pending');
 
-  assert.equal(
-    r.body.message,
-    'Solicitação cadastrada com sucesso!'
-  );
+  assert.equal(r.body.message, 'Solicitação cadastrada com sucesso!');
 
   assert.equal(r.body.whatsapp_url, undefined);
 });
@@ -150,16 +134,11 @@ test('erro de banco não vaza detalhes internos', async () => {
     },
   });
 
-  const r = await request(f.app)
-    .post('/api/trial-request')
-    .send(payload)
-    .expect(500);
+  const r = await request(f.app).post('/api/trial-request').send(payload).expect(500);
 
   assert.ok(r.body.error.requestId);
 
-  assert.ok(
-    !JSON.stringify(r.body).includes('secret')
-  );
+  assert.ok(!JSON.stringify(r.body).includes('secret'));
 });
 
 // TESTE 7
@@ -193,10 +172,7 @@ test('OpenAPI inclui todos os contratos', async () => {
     .expect((r) => {
       assert.equal(r.body.openapi, '3.0.3');
 
-      assert.ok(
-        r.body.paths['/api/trial-request']
-          .post.responses['201']
-      );
+      assert.ok(r.body.paths['/api/trial-request'].post.responses['201']);
     });
 });
 
@@ -206,16 +182,10 @@ test('limite de solicitações impede abuso', async () => {
   const f = fixture();
 
   for (let i = 0; i < 10; i++) {
-    await request(f.app)
-      .post('/api/trial-request')
-      .send(payload)
-      .expect(201);
+    await request(f.app).post('/api/trial-request').send(payload).expect(201);
   }
 
-  await request(f.app)
-    .post('/api/trial-request')
-    .send(payload)
-    .expect(429);
+  await request(f.app).post('/api/trial-request').send(payload).expect(429);
 
   assert.equal(f.calls(), 10);
 });

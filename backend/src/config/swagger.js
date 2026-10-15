@@ -1,4 +1,3 @@
-
 import swaggerJsdoc from 'swagger-jsdoc';
 
 const ref = (name) => ({
@@ -102,13 +101,7 @@ export const openapi = swaggerJsdoc({
         TrialInput: {
           type: 'object',
           additionalProperties: false,
-          required: [
-            'client_name',
-            'phone',
-            'email',
-            'preferred_modality',
-            'consent',
-          ],
+          required: ['client_name', 'phone', 'email', 'preferred_modality', 'consent'],
           properties: {
             client_name: {
               type: 'string',
@@ -229,8 +222,7 @@ export const openapi = swaggerJsdoc({
           },
           responses: {
             201: {
-              description:
-                'Solicitação armazenada com sucesso no banco de dados',
+              description: 'Solicitação armazenada com sucesso no banco de dados',
               ...json(ref('TrialResult')),
             },
             400: error,

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { X, ArrowUpRight, CheckCircle } from 'lucide-react';
 import useTrialRequest from '../hooks/useTrialRequest';
@@ -27,11 +26,7 @@ export default function TrialModal({ modalities, onClose }) {
         if (e.target === dialog.current) onClose();
       }}
     >
-      <button
-        className="modal-close"
-        onClick={onClose}
-        aria-label="Fechar"
-      >
+      <button className="modal-close" onClick={onClose} aria-label="Fechar">
         <X />
       </button>
 
@@ -44,39 +39,26 @@ export default function TrialModal({ modalities, onClose }) {
 
           <h3>Cadastro realizado com sucesso!</h3>
 
-          <p>
-            Sua solicitação #{result?.id} foi registrada.
-          </p>
+          <p>Sua solicitação #{result?.id} foi registrada.</p>
 
           <p>
-            Nossa equipe poderá entrar em contato pelos dados
-            informados para confirmar a disponibilidade.
+            Nossa equipe poderá entrar em contato pelos dados informados para confirmar a
+            disponibilidade.
           </p>
 
-          <button
-            type="button"
-            className="button primary"
-            onClick={onClose}
-          >
+          <button type="button" className="button primary" onClick={onClose}>
             Concluir
           </button>
         </div>
       ) : (
         <form onSubmit={submit}>
           <p className="muted">
-            Aula experimental gratuita e sem compromisso.
-            Escolha sua modalidade.
+            Aula experimental gratuita e sem compromisso. Escolha sua modalidade.
           </p>
 
           <label>
             Nome completo
-            <input
-              name="client_name"
-              autoComplete="name"
-              required
-              minLength={3}
-              maxLength={120}
-            />
+            <input name="client_name" autoComplete="name" required minLength={3} maxLength={120} />
           </label>
 
           <label>
@@ -93,13 +75,7 @@ export default function TrialModal({ modalities, onClose }) {
 
           <label>
             E-mail
-            <input
-              name="email"
-              autoComplete="email"
-              type="email"
-              required
-              maxLength={254}
-            />
+            <input name="email" autoComplete="email" type="email" required maxLength={254} />
           </label>
 
           <label>
@@ -115,14 +91,9 @@ export default function TrialModal({ modalities, onClose }) {
           </label>
 
           <label className="consent">
-            <input
-              type="checkbox"
-              name="consent"
-              required
-            />
-            Autorizo o uso dos dados para atender esta
-            solicitação. Consulte a política de privacidade
-            no rodapé.
+            <input type="checkbox" name="consent" required />
+            Autorizo o uso dos dados para atender esta solicitação. Consulte a política de
+            privacidade no rodapé.
           </label>
 
           {error && (
@@ -131,20 +102,12 @@ export default function TrialModal({ modalities, onClose }) {
             </p>
           )}
 
-          <button
-            type="submit"
-            className="button primary"
-            disabled={state === 'loading'}
-          >
-            {state === 'loading'
-              ? 'Enviando…'
-              : 'Solicitar aula experimental'}
+          <button type="submit" className="button primary" disabled={state === 'loading'}>
+            {state === 'loading' ? 'Enviando…' : 'Solicitar aula experimental'}
             <ArrowUpRight size={18} />
           </button>
 
-          <small>
-            A solicitação não garante uma reserva.
-          </small>
+          <small>A solicitação não garante uma reserva.</small>
         </form>
       )}
     </dialog>

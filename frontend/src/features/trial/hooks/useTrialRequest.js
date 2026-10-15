@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { submitTrial } from '../../../services/api';
 
@@ -12,9 +11,7 @@ export default function useTrialRequest() {
 
     if (state === 'loading') return;
 
-    const fields = Object.fromEntries(
-      new FormData(event.currentTarget)
-    );
+    const fields = Object.fromEntries(new FormData(event.currentTarget));
 
     fields.phone = fields.phone.replace(/\D/g, '');
     fields.consent = fields.consent === 'on';
@@ -33,7 +30,7 @@ export default function useTrialRequest() {
       setError(
         failure.name === 'TimeoutError'
           ? 'Tempo de conexão excedido. Tente novamente.'
-          : failure.message
+          : failure.message,
       );
 
       setState('idle');

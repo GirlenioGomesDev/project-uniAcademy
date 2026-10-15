@@ -1,4 +1,3 @@
-
 import { AppError } from '../middleware/errors.js';
 
 export function createSiteService(repository, whatsappNumber) {
@@ -8,25 +7,17 @@ export function createSiteService(repository, whatsappNumber) {
         ...(await repository.getSiteData()),
         contact: {
           city: 'Recife, Pernambuco',
-          whatsapp_url: whatsappNumber
-            ? `https://wa.me/${whatsappNumber}`
-            : null,
+          whatsapp_url: whatsappNumber ? `https://wa.me/${whatsappNumber}` : null,
         },
         demo: true,
       };
     },
 
     async trial(data) {
-      const modalidadeExiste = await repository.modalityExists(
-        data.preferred_modality
-      );
+      const modalidadeExiste = await repository.modalityExists(data.preferred_modality);
 
       if (!modalidadeExiste) {
-        throw new AppError(
-          400,
-          'INVALID_MODALITY',
-          'Escolha uma modalidade disponível.'
-        );
+        throw new AppError(400, 'INVALID_MODALITY', 'Escolha uma modalidade disponível.');
       }
 
       // Salva diretamente no MySQL.
