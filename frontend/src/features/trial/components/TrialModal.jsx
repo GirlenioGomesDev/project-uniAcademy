@@ -32,10 +32,10 @@ export default function TrialModal({ modalities, onClose, demo = false }) {
           <CheckCircle className="accent" />
           <p>
             {result.demo
-              ? 'Simulação concluída. Nenhum dado foi armazenado ou enviado ao WhatsApp.'
-              : `Solicitação #${result.id} registrada. A equipe confirma a disponibilidade pelo WhatsApp.`}
+              ? 'Simulação concluída. Nenhum dado foi armazenado ou enviado.'
+              : `Solicitação #${result.id} registrada. Nossa equipe poderá entrar em contato pelos dados informados para confirmar a disponibilidade.`}
           </p>
-          {result.whatsapp_url && (
+          {false && result.whatsapp_url && (
             <a
               className="button primary"
               href={result.whatsapp_url}
@@ -58,7 +58,7 @@ export default function TrialModal({ modalities, onClose, demo = false }) {
             <input name="client_name" autoComplete="name" required minLength={3} maxLength={120} />
           </label>
           <label>
-            WhatsApp com DDD
+            Telefone com DDD
             <input
               name="phone"
               autoComplete="tel"
