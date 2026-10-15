@@ -9,3 +9,5 @@ backup_uniacademy.sql
 backup_uniacademy.sql
 
 backend/.env.local.backup
+
+backup_uniacademy_restore.sql

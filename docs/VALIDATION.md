@@ -409,3 +409,76 @@ Os dez testes automatizados foram aprovados e o build do React foi concluído se
 A infraestrutura do back-end já foi publicada e validada no Render, utilizando o MySQL da Aiven com conexão SSL.
 
 **Situação geral: requisitos principais de back-end, banco de dados e integração validados, com pendências de atualização da documentação da API, publicação da nova versão e verificações finais.**
+
+
+
+## 18. Validação final da persistência em produção
+
+Foi realizado um teste de cadastro utilizando a API pública
+do UniAcademy, hospedada no Render e conectada ao MySQL
+da Aiven.
+
+Endpoint:
+POST https://uniacademy-api.onrender.com/api/trial-request
+
+Dados fictícios:
+- Nome: Teste Publico UniAcademy
+- E-mail: teste.publico@example.com
+- Modalidade: Musculação
+- Consentimento: true
+
+Resposta recebida:
+- ID: 3
+- Status: pending
+- Mensagem: Solicitação cadastrada com sucesso!
+
+Após a requisição, foi executada uma consulta SQL diretamente
+no MySQL da Aiven, que confirmou a existência do registro ID 3
+com os mesmos dados enviados à API.
+
+O registro fictício foi posteriormente removido.
+
+Resultado: APROVADO.
+
+Conclusão: a API publicada no Render recebe solicitações
+e persiste os dados no MySQL da Aiven sem depender de
+WhatsApp ou Instagram.
+
+O deploy automático do commit b258d51 também foi
+confirmado no Render com status Live.
+
+
+
+
+## 19. Teste de restauração do backup
+
+Foi realizado um teste de recuperação do banco de dados
+MySQL em um ambiente local isolado.
+
+Arquivo utilizado: backup_uniacademy.sql
+Banco de destino: uniacademy_restore_test
+
+Antes da restauração, foi criada uma cópia do backup
+sem a instrução global GTID_PURGED, preservando o
+arquivo original.
+
+A importação foi concluída sem erros.
+
+Após a restauração, foram executados SHOW TABLES e
+consultas COUNT(*) para verificar os dados recuperados.
+
+Resultados:
+- plans: 4 registros
+- modalities: 4 registros
+- schedules: 10 registros
+- trial_requests: 0 registros
+
+As quatro tabelas foram recuperadas corretamente.
+
+Resultado: APROVADO.
+
+Conclusão: foi comprovada a recuperação básica do
+backup local sem alterar o banco de produção da Aiven.
+
+Observação: o teste não equivale à validação de um
+backup atual do banco hospedado na nuvem.
