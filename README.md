@@ -43,3 +43,11 @@ O rodapé disponibiliza informações de privacidade, proteção de dados e term
 Preços, horários e condições comerciais precisam ser aprovados pela academia antes da divulgação. As fotografias são ilustrativas. Endereço e contatos oficiais dependem de confirmação.
 
 © 2026 UniAcademy.
+
+## Configuração de dados e cadastros
+
+O back-end usa `DATA_SOURCE=mysql` por padrão. Nesse modo, a API valida a modalidade e salva a solicitação de aula experimental no MySQL, devolvendo confirmação sem exigir WhatsApp ou Instagram. Configure as variáveis do arquivo `backend/.env.example` apenas no ambiente local ou no serviço de hospedagem; nunca publique credenciais.
+
+Para uma demonstração sem banco, use explicitamente `DATA_SOURCE=demo` em desenvolvimento. O formulário será simulado e nenhum dado será armazenado. **O modo `demo` é bloqueado em produção.** O front-end também pode apresentar um catálogo demonstrativo em ambiente local quando a API não está disponível; isso não significa que exista conexão com o banco.
+
+Verifique as evidências de integração em `docs/VALIDATION.md` e as instruções de operação em `docs/OPERATIONS.md`.
