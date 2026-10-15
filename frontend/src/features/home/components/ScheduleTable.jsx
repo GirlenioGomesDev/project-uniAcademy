@@ -1,55 +1,77 @@
 import { useState } from 'react';
-const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+import { WEEK_DAYS } from '../../../config/academy';
 
-export default function ScheduleTable({ schedules }) {
-  const [day, setDay] = useState('');
+export default function ScheduleTable({ rows, day, onDayChange }) {
   const [modality, setModality] = useState('');
-  const rows = schedules.filter(
+  const visible = rows.filter(
     (entry) =>
-      (!day || String(entry.weekday) === day) && (!modality || entry.modality_name === modality),
+      (!day || String(entry.weekday) === day) && (!modality || entry.modalityKey === modality),
   );
+  const options = [...new Map(rows.map((entry) => [entry.modalityKey, entry.displayName]))];
   return (
     <>
+      <p className="schedule-table-caption">
+        A mesma programação dos cartões, com funcionamento do salão e aulas coletivas. Os filtros de
+        dia são sincronizados.
+      </p>
       <div className="filters">
         <label>
           Dia
-          <select value={day} onChange={(event) => setDay(event.target.value)}>
+          <select
+            aria-label="Dia da grade"
+            value={day}
+            onChange={(event) => onDayChange(event.target.value)}
+          >
             <option value="">Todos os dias</option>
-            {days.map((label, index) => (
-              <option key={label} value={index + 1}>
-                {label}
+            {WEEK_DAYS.map((entry) => (
+              <option key={entry.value} value={entry.value}>
+                {entry.label}
               </option>
             ))}
           </select>
         </label>
         <label>
           Modalidade
-          <select value={modality} onChange={(event) => setModality(event.target.value)}>
+          <select
+            aria-label="Modalidade da grade"
+            value={modality}
+            onChange={(event) => setModality(event.target.value)}
+          >
             <option value="">Todas</option>
-            {[...new Set(schedules.map((entry) => entry.modality_name))].map((name) => (
-              <option key={name}>{name}</option>
+            {options.map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
             ))}
           </select>
         </label>
       </div>
       <div className="table-wrap">
         <table>
-          <caption className="sr-only">Grade de aulas da UniAcademy</caption>
+          <caption className="sr-only">
+            Funcionamento da academia e grade de aulas da UniAcademy
+          </caption>
           <thead>
             <tr>
               <th>Dia / horário</th>
-              <th>Aula</th>
-              <th>Professor / sala</th>
+              <th>Atividade</th>
+              <th>Orientação / sala</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((entry) => (
-              <tr key={entry.id}>
+            {visible.map((entry) => (
+              <tr key={entry.id} className={entry.kind === 'gym' ? 'gym-row' : ''}>
                 <td>
-                  {days[entry.weekday - 1]}
-                  <strong className="accent">{entry.time_slot}</strong>
+                  {WEEK_DAYS.find((value) => value.value === entry.weekday)?.label || 'A confirmar'}
+                  <strong className="accent">{entry.timeLabel}</strong>
                 </td>
-                <td>{entry.modality_name}</td>
+                <td>
+                  <span className="schedule-table-label">{entry.displayName}</span>
+                  {entry.kind === 'gym' && <small>Durante o funcionamento</small>}
+                  {!entry.withinHours && (
+                    <small className="table-schedule-warning">Fora do expediente • confirmar</small>
+                  )}
+                </td>
                 <td>
                   {entry.instructor}
                   <small>{entry.room}</small>
@@ -58,7 +80,7 @@ export default function ScheduleTable({ schedules }) {
             ))}
           </tbody>
         </table>
-        {!rows.length && <p role="status">Nenhuma aula com estes filtros.</p>}
+        {!visible.length && <p role="status">Nenhuma aula com estes filtros.</p>}
       </div>
     </>
   );

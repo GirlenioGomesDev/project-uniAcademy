@@ -2,9 +2,10 @@ export default function PrivacyNotice() {
   return (
     <div className="privacy-content">
       <p>
-        Este é um projeto acadêmico com cadastro integrado. Ao enviar o formulário, os dados são
-        transmitidos ao serviço e armazenados para atender à solicitação. Utilize informações
-        fictícias nos testes. Não há envio automático de mensagens ou abertura do WhatsApp.
+        Este é um projeto acadêmico. Na aula experimental, os dados são transmitidos ao serviço e
+        armazenados para atender à solicitação. O interesse nos planos está em prévia local: seus
+        campos não são transmitidos nem armazenados. Utilize informações fictícias nos testes. Não
+        há envio automático de mensagens ou abertura do WhatsApp.
       </p>
       <h4>Finalidade e dados</h4>
       <p>

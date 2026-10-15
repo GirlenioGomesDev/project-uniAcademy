@@ -5,6 +5,8 @@
 @import './styles/components.css';
 @import './styles/responsive.css';
 @import './styles/experience.css';
+@import './features/plans/styles.css';
+@import './styles/interactions.css';
 @theme {
   --color-brand: #7726ae;
 }

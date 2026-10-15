@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 import { X, ArrowUpRight, CheckCircle } from 'lucide-react';
 import useTrialRequest from '../hooks/useTrialRequest';
 import PrivacyNotice from '../../../components/ui/PrivacyNotice';
-export default function TrialModal({ modalities, onClose }) {
+import { getModalityLabel, getModalityKey } from '../../home/services/schedule';
+export default function TrialModal({ modalities, onClose, initialModality = '' }) {
   const dialog = useRef(null);
   const { state, error, result, submit } = useTrialRequest();
   useEffect(() => {
@@ -73,10 +74,21 @@ export default function TrialModal({ modalities, onClose }) {
           </label>
           <label>
             Modalidade
-            <select name="preferred_modality" aria-label="Modalidade" required>
+            <select
+              name="preferred_modality"
+              aria-label="Modalidade"
+              required
+              defaultValue={
+                modalities.find(
+                  (modality) => getModalityKey(modality.name) === getModalityKey(initialModality),
+                )?.name || ''
+              }
+            >
               <option value="">Selecione</option>
               {modalities.map((m) => (
-                <option key={m.id}>{m.name}</option>
+                <option key={m.id} value={m.name}>
+                  {getModalityLabel(m.name)}
+                </option>
               ))}
             </select>
           </label>

@@ -1,0 +1,173 @@
+/* Mouse polish never replaces keyboard focus; motion is limited to pointer devices. */
+.button,
+.text-button,
+.menu,
+.modal-close {
+  touch-action: manipulation;
+}
+.button svg,
+.text-button svg {
+  flex-shrink: 0;
+  transition: transform 180ms ease;
+}
+.navlinks a,
+.footer-grid nav a {
+  position: relative;
+  transition: color 180ms ease;
+}
+.navlinks a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+.navlinks a:focus-visible::after {
+  transform: scaleX(1);
+}
+.day-tabs button {
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+.schedule-card,
+.contact-card {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+.plan:focus-within {
+  border-color: #a36ac8;
+  box-shadow: 0 0 0 3px #7726ae12;
+}
+.button:focus-visible,
+.text-button:focus-visible,
+.day-tabs button:focus-visible {
+  outline: 3px solid #b26bdc;
+  outline-offset: 4px;
+}
+.schedule-time-block {
+  flex-shrink: 0;
+  min-width: 112px;
+}
+.schedule-time-block strong {
+  display: block;
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 800;
+}
+.schedule-time-block small {
+  display: block;
+  font-size: 10px !important;
+  margin: 5px 0 0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.schedule-panel .schedule-card .schedule-class-info {
+  min-width: 0;
+}
+.schedule-invalid {
+  border-color: #80683a;
+}
+.schedule-invalid .schedule-warning,
+.table-schedule-warning {
+  color: #edce86 !important;
+  font-size: 12px;
+  display: block;
+  margin-top: 6px;
+}
+.schedule-table-label {
+  font-weight: 600;
+}
+.table-wrap .gym-row {
+  background: #c58af008;
+}
+.schedule-table-caption {
+  padding: 8px 0 16px;
+  color: #c7b7d2;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.schedule-panel .day-tabs button {
+  min-width: 42px;
+}
+.schedule-panel .day-tabs .week-tab {
+  flex-basis: 100%;
+  background: transparent;
+}
+.schedule-panel .day-tabs .week-tab.active {
+  background: var(--accent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .button:hover svg,
+  .text-button:hover svg {
+    transform: translate(2px, -2px);
+  }
+  .navlinks a:hover::after {
+    transform: scaleX(1);
+  }
+  .footer-grid nav a:hover {
+    color: #d9abf5;
+  }
+  .plan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px #54276c18;
+  }
+  .plan {
+    transition:
+      transform 200ms ease,
+      box-shadow 200ms ease,
+      border-color 200ms ease;
+  }
+  .schedule-card:hover {
+    transform: translateX(3px);
+    box-shadow: 0 8px 22px #0002;
+  }
+  .contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px #0002;
+  }
+  .day-tabs button:not(.active):hover {
+    background: #473153;
+    border-color: #bb86d5;
+  }
+}
+@media (max-width: 700px) {
+  .schedule-time-block {
+    min-width: 84px;
+  }
+  .schedule-time-block strong {
+    font-size: 19px;
+  }
+  .schedule-panel .schedule-card {
+    align-items: center;
+  }
+  .schedule-panel .schedule-card b {
+    overflow-wrap: anywhere;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .plan:hover,
+  .schedule-card:hover,
+  .contact-card:hover,
+  .button:hover,
+  .button:hover svg,
+  .text-button:hover svg {
+    transform: none;
+  }
+}

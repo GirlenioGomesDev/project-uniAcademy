@@ -1,0 +1,525 @@
+dialog.plan-interest-modal {
+  width: min(980px, calc(100vw - 32px));
+  max-width: calc(100vw - 24px);
+  max-height: 90svh;
+  padding: 0;
+  border: 1px solid #e7dced;
+  border-radius: 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+}
+.plan-interest-modal .modal-close {
+  z-index: 2;
+  background: #f3ecf8;
+  color: #493354;
+  border-radius: 50%;
+  padding: 7px;
+  right: 15px;
+  top: 15px;
+}
+.plan-interest-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+}
+.plan-selection-summary {
+  padding: 40px 30px;
+  background: linear-gradient(155deg, #46205e, #1c1423 70%);
+  color: #fff;
+}
+.plan-step-label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  font-weight: 800;
+  color: #dab5f5;
+}
+.plan-selected-tag {
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid #b581d456;
+  border-radius: 30px;
+  margin-top: 30px;
+  font-size: 11px;
+  color: #e3c9f5;
+}
+.plan-selection-summary h2 {
+  font-size: 40px;
+  margin: 18px 0;
+  letter-spacing: -1.5px;
+}
+.plan-summary-price {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+.plan-summary-price span {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #cfbadb;
+}
+.plan-summary-terms {
+  color: #cfbadb;
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+.plan-selection-summary ul {
+  list-style: none;
+  border-top: 1px solid #b581d43d;
+  padding: 24px 0 0;
+  margin: 27px 0;
+}
+.plan-selection-summary li {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  font-size: 12px;
+}
+.plan-selection-summary li svg {
+  flex-shrink: 0;
+  color: #cfa0f0;
+  margin-top: 2px;
+}
+.plan-summary-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 15px;
+  border: 1px solid #b581d43d;
+  border-radius: 12px;
+  color: #cfbadb;
+}
+.plan-summary-note svg {
+  flex-shrink: 0;
+}
+.plan-summary-note p {
+  font-size: 11px;
+}
+.plan-interest-content {
+  min-width: 0;
+  padding: 42px 32px 30px;
+}
+.plan-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 35px 22px 0;
+  border-bottom: 1px solid #ede5f2;
+  margin-bottom: 24px;
+}
+.plan-progress span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: #a291ad;
+}
+.plan-progress b {
+  font-weight: 600;
+}
+.plan-progress span.current,
+.plan-progress span.complete {
+  color: var(--purple);
+  font-weight: 800;
+}
+.plan-progress i {
+  flex: 1;
+  height: 1px;
+  background: #e3d5ed;
+  min-width: 10px;
+}
+.plan-interest-form h3,
+.plan-preview h3 {
+  font-size: 24px;
+  letter-spacing: -0.7px;
+  line-height: 1.3;
+}
+.plan-interest-form > p:first-of-type {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.plan-interest-form label {
+  font-size: 12px;
+  margin-top: 18px;
+  font-weight: 700;
+}
+.plan-interest-form label > span {
+  font-weight: 400;
+}
+.plan-interest-form input,
+.plan-interest-form select {
+  font-size: 13px;
+  padding: 12px;
+  min-height: 43px;
+  background: #fcfaff;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.plan-interest-form input:focus,
+.plan-interest-form select:focus {
+  border-color: #ac75ce;
+  box-shadow: 0 0 0 4px #7726ae0c;
+}
+.plan-interest-form select:disabled {
+  cursor: not-allowed;
+  background: #f2eef5;
+  color: #8b7e94;
+}
+.plan-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.plan-form-grid > div {
+  min-width: 0;
+}
+.plan-interest-form .plan-form-grid:has(#plan-date) {
+  grid-template-columns: 1fr;
+}
+.plan-legal {
+  border-color: #e4d8ed;
+  padding: 16px 0;
+  margin-top: 14px;
+}
+.plan-legal summary {
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: #6b3b88;
+}
+.plan-legal p {
+  font-size: 11px;
+  color: #82708d;
+  margin-top: 12px;
+}
+.plan-billing-summary {
+  border-top: 1px solid #e8deef;
+  padding-top: 24px;
+  margin-top: 12px;
+}
+.plan-review-contact {
+  padding: 14px 0;
+  border-color: #e6dbea;
+  margin: 18px 0 8px;
+}
+.plan-review-contact summary {
+  font-size: 12px;
+  color: #744887;
+}
+.plan-review-contact .plan-review-list {
+  margin: 15px 0 0;
+}
+.plan-contract-total {
+  background: #fcfaff;
+  border: 1px solid #e2d4eb;
+  border-radius: 14px;
+  padding: 20px;
+}
+.plan-contract-total > div,
+.billing-charge > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 15px;
+}
+.plan-contract-total > div {
+  font-size: 14px;
+}
+.plan-contract-total > div:first-child strong {
+  color: var(--purple);
+  font-size: 18px;
+  white-space: nowrap;
+}
+.plan-contract-total .contract-total-row {
+  border-top: 1px solid #e5dceb;
+  padding-top: 15px;
+  margin-top: 18px;
+}
+.contract-total-row strong {
+  font-size: 19px;
+  white-space: nowrap;
+}
+.billing-section-title {
+  margin: 25px 0 14px;
+  font-size: 15px;
+  font-weight: 800;
+}
+.billing-section-title > span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--purple);
+  background: #f1e3fa;
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin-left: 6px;
+}
+.billing-charge {
+  border-top: 1px solid #ece4f1;
+  padding: 18px 0;
+  display: grid;
+  gap: 9px;
+  font-size: 13px;
+}
+.billing-charge time {
+  font-size: 11px;
+  color: #8a7a92;
+  white-space: nowrap;
+}
+.billing-charge > div:last-child {
+  color: #75627f;
+}
+.billing-charge > div:last-child > span:last-child {
+  white-space: nowrap;
+  color: #2a1c32;
+  font-weight: 600;
+}
+.billing-single-use,
+.billing-estimate-note {
+  font-size: 11px;
+  color: #826c90;
+  margin: 8px 0 20px;
+}
+.plan-payment-preview {
+  border-top: 1px solid #e8deef;
+  padding-top: 20px;
+}
+.plan-payment-preview > span {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+.plan-payment-preview > div {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+}
+.plan-payment-preview > div > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #e4d7ed;
+  border-radius: 8px;
+  background: #fcf8ff;
+  color: #6d4185;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 10px 15px;
+}
+.plan-payment-preview > small {
+  font-size: 10px;
+  color: #8c7b97;
+}
+.plan-safe-preview {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  margin: 18px 0 22px;
+  border: 1px solid #e3d8eb;
+  border-radius: 13px;
+  background: #faf7fc;
+}
+.plan-safe-preview svg {
+  flex-shrink: 0;
+  color: var(--purple);
+}
+.plan-safe-preview p {
+  font-size: 11px;
+  color: #8b7795;
+}
+.plan-safe-preview strong {
+  display: block;
+  color: #44304f;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.plan-review-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #e7dced;
+  padding-top: 23px;
+  margin-top: 25px;
+}
+.plan-review-total > span {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+.plan-review-total > span > strong {
+  font-size: 21px;
+}
+.plan-review-total small {
+  font-size: 10px;
+  color: #8a7795;
+}
+.plan-review-total > strong {
+  color: var(--purple);
+  font-size: 23px;
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  .billing-charge > div:first-child {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .plan-contract-total {
+    padding: 16px;
+  }
+  .plan-review-total > strong {
+    font-size: 20px;
+  }
+}
+.plan-field-help {
+  font-size: 10px;
+  color: #81708d;
+  margin-top: 10px;
+}
+.plan-interest-form .consent {
+  margin-top: 20px;
+  font-size: 11px;
+}
+.plan-interest-form .consent input {
+  min-height: 0;
+  background: transparent;
+  margin-top: 3px;
+}
+.plan-review-button {
+  width: 100%;
+  margin: 24px 0 0;
+  font-size: 13px;
+}
+.plan-form-footnote {
+  text-align: center;
+  font-size: 10px;
+  color: #8a7894;
+  margin-top: 12px;
+}
+.plan-preview-icon {
+  color: var(--purple);
+  margin-bottom: 18px;
+}
+.plan-preview-description {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 12px;
+}
+.plan-review-list {
+  margin: 24px 0;
+  padding: 0;
+  display: grid;
+  gap: 15px;
+}
+.plan-review-list div {
+  padding-bottom: 13px;
+  border-bottom: 1px solid #eee6f3;
+}
+.plan-review-list dt {
+  color: #8a7894;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.plan-review-list dd {
+  margin: 5px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.plan-local-notice {
+  display: flex;
+  gap: 11px;
+  background: #f3eaf9;
+  border: 1px solid #e7d4f2;
+  border-radius: 12px;
+  padding: 16px;
+}
+.plan-local-notice svg {
+  flex-shrink: 0;
+  color: var(--purple);
+}
+.plan-local-notice p {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #71517e;
+}
+.plan-local-notice strong {
+  display: block;
+}
+.plan-form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+.plan-form-actions .button {
+  flex: 1;
+  padding: 14px 10px;
+  font-size: 12px;
+  gap: 7px;
+}
+@media (max-width: 760px) {
+  .plan-interest-layout {
+    grid-template-columns: 1fr;
+  }
+  .plan-selection-summary {
+    padding: 28px 24px 22px;
+  }
+  .plan-selected-tag {
+    margin-top: 18px;
+  }
+  .plan-selection-summary h2 {
+    font-size: 30px;
+    margin: 13px 0;
+  }
+  .plan-summary-price {
+    font-size: 29px;
+  }
+  .plan-selection-summary ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 14px;
+    margin: 18px 0 0;
+    padding-top: 18px;
+  }
+  .plan-selection-summary li {
+    font-size: 11px;
+    margin: 0;
+  }
+  .plan-summary-note {
+    margin-top: 18px;
+    padding: 11px;
+  }
+  .plan-interest-content {
+    padding: 25px 23px;
+  }
+  .plan-interest-modal .modal-close {
+    background: #fff;
+    color: #261430;
+  }
+  .plan-interest-form h3,
+  .plan-preview h3 {
+    font-size: 22px;
+  }
+}
+@media (max-width: 420px) {
+  .plan-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .plan-selection-summary ul {
+    grid-template-columns: 1fr;
+  }
+  .plan-form-actions {
+    flex-direction: column;
+  }
+}

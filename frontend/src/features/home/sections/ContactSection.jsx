@@ -1,5 +1,6 @@
 import { Phone, MessageCircle, Instagram, ArrowUpRight } from 'lucide-react';
 import { demoContact } from '../../../../../shared/siteCatalog.js';
+import { OPENING_SUMMARY } from '../../../config/academy';
 
 export default function ContactSection({ contact }) {
   const details = { ...demoContact, ...contact };
@@ -40,7 +41,7 @@ export default function ContactSection({ contact }) {
           </article>
         </div>
         <p className="contact-hours muted">
-          Atendimento: segunda a sexta, 06h às 23h; sábado, 08h às 14h. Contatos fictícios nesta
+          Atendimento: {OPENING_SUMMARY}. Domingos e feriados: fechado. Contatos fictícios nesta
           demonstração.
         </p>
       </div>

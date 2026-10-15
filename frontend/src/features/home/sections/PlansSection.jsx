@@ -1,7 +1,7 @@
 import PlanCard from '../components/PlanCard';
 import SectionTitle from '../../../components/ui/SectionTitle';
 
-export default function PlansSection({ data, error, onTrial }) {
+export default function PlansSection({ data, error, onPlanSelect }) {
   return (
     <section id="planos" className="section plans-section">
       <div className="container">
@@ -13,7 +13,7 @@ export default function PlansSection({ data, error, onTrial }) {
         {data ? (
           <div className="four-grid plans">
             {data.plans.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} onTrial={onTrial} />
+              <PlanCard key={plan.id} plan={plan} onSelect={onPlanSelect} />
             ))}
           </div>
         ) : (

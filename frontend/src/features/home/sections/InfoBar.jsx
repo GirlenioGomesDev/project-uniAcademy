@@ -1,4 +1,5 @@
 import { MapPin, Clock, HeartHandshake } from 'lucide-react';
+import { OPENING_SUMMARY } from '../../../config/academy';
 
 export default function InfoBar() {
   return (
@@ -6,7 +7,7 @@ export default function InfoBar() {
       <div className="container info-grid">
         {[
           [MapPin, 'Bem perto de você', 'Recife • Pernambuco'],
-          [Clock, 'Seu tempo, seu treino', 'Seg–sex 06h–23h • Sáb 08h–14h'],
+          [Clock, 'Seu tempo, seu treino', OPENING_SUMMARY],
           [HeartHandshake, 'Comece com apoio', 'Orientação em cada etapa'],
         ].map(([Icon, title, text]) => (
           <div key={title}>

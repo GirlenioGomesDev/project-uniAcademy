@@ -16,11 +16,11 @@ export const faq = [
   ],
   [
     'Como funciona a aula experimental?',
-    'Preencha o formulário e continue pelo WhatsApp. A equipe verifica a disponibilidade e confirma os detalhes. A solicitação não garante reserva.',
+    'Escolha sua modalidade e preencha o formulário de aula experimental. A equipe recebe o cadastro e verifica a disponibilidade. A solicitação não garante reserva.',
   ],
   [
     'Qual plano combina comigo?',
-    'Light atende quem treina entre 10h e 16h. Plus amplia os horários e inclui funcional e dança. MegaPlus também inclui lutas e avaliações. Day-use vale por um dia.',
+    'Todos os planos permitem acesso durante o funcionamento da academia. Light inclui musculação e cardio; Plus inclui funcional e dança; MegaPlus também inclui lutas e avaliações. Day-use vale por um dia.',
   ],
   [
     'A aula experimental tem custo?',
