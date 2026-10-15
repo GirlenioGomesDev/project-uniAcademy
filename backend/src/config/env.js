@@ -4,7 +4,7 @@ const schema = Joi.object({
   NODE_ENV: Joi.string().valid('development', 'test', 'production').default('development'),
   DATA_SOURCE: Joi.string()
     .valid('demo', 'mysql')
-    .default(process.env.NODE_ENV === 'production' || process.env.DB_PASSWORD ? 'mysql' : 'demo'),
+    .default('mysql'),
   PORT: Joi.number().port().default(3001),
   CORS_ORIGINS: Joi.string().default('http://localhost:5173,http://127.0.0.1:5173'),
   DB_HOST: Joi.string().default('127.0.0.1'),
