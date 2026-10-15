@@ -1,4 +1,4 @@
-const base = import.meta.env.VITE_API_URL || '/api';
+const base = (import.meta.env.VITE_API_URL?.trim() || '/api').replace(/\/+$/, '');
 async function request(path, options = {}) {
   const timeout = AbortSignal.timeout(12000);
   const response = await fetch(`${base}${path}`, {
@@ -23,5 +23,11 @@ export const getSiteData = async (signal) => {
     throw new Error('Catálogo inválido.');
   return data;
 };
-export const submitTrial = (data) =>
-  request('/trial-request', { method: 'POST', body: JSON.stringify(data) });
+export const submitTrial = async (data) => {
+  const result = await request('/trial-request', { method: 'POST', body: JSON.stringify(data) });
+  if (!result || result.status !== 'pending' || !/^[1-9]\d*$/.test(String(result.id)))
+    throw new Error(
+      'O serviço não confirmou o cadastro. Confira a solicitação antes de tentar novamente.',
+    );
+  return result;
+};

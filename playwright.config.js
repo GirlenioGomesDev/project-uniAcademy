@@ -12,7 +12,7 @@ export default defineConfig({
     launchOptions: existsSync(chrome) ? { executablePath: chrome } : {},
   },
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run dev -w frontend -- --port 5173 --strictPort',
     url: 'http://127.0.0.1:5173',
     reuseExistingServer: true,
     timeout: 60000,

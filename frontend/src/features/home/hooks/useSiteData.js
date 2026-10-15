@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { getSiteData } from '../../../services/api';
-import { demoCatalog } from '../../../../../shared/siteCatalog.js';
 
 export default function useSiteData() {
   const [data, setData] = useState(null);
@@ -9,12 +8,14 @@ export default function useSiteData() {
   useEffect(() => {
     const controller = new AbortController();
     setError('');
+    setData(null);
     getSiteData(controller.signal)
-      .then(setData)
+      .then((catalog) => {
+        if (!controller.signal.aborted) setData(catalog);
+      })
       .catch((failure) => {
-        if (failure.name === 'AbortError') return;
-        if (import.meta.env.DEV) setData({ ...demoCatalog, source: 'offline-demo' });
-        else setError('Não foi possível carregar o catálogo. Tente novamente em instantes.');
+        if (controller.signal.aborted) return;
+        setError('Não foi possível carregar o catálogo. Verifique a conexão e tente novamente.');
       });
     return () => controller.abort();
   }, [attempt]);

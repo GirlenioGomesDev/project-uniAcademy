@@ -34,7 +34,7 @@ A equipe acompanha qualidade, cumprimento de requisitos e melhorias por entrega.
 
 ## Demonstração acadêmica
 
-O modo demonstrativo permite explorar planos, modalidades, grade de horários e simular a aula experimental sem guardar dados pessoais. Telefones, perfil social, endereço e mapa estão identificados como fictícios ou ilustrativos.
+O projeto permite explorar planos, modalidades e grade de horários, além de cadastrar uma solicitação de aula experimental. O formulário transmite e armazena os dados informados para atendimento; nos testes acadêmicos, utilize somente informações fictícias. Telefones institucionais, perfil social, endereço e mapa estão identificados como fictícios ou ilustrativos. O cadastro não exige WhatsApp e não confirma uma reserva.
 
 O rodapé disponibiliza informações de privacidade, proteção de dados e termos de uso. A demonstração não comprova conformidade legal integral, certificação ou maturidade organizacional formal. O uso real depende de validação dos responsáveis, dos dados institucionais e do tratamento de informações pessoais.
 

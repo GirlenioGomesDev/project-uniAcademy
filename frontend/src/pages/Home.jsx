@@ -42,11 +42,7 @@ export default function Home() {
       </main>
       <Footer contact={data?.contact} />
       {trialOpen && (
-        <TrialModal
-          modalities={data?.modalities || []}
-          demo={data?.demo}
-          onClose={() => setTrialOpen(false)}
-        />
+        <TrialModal modalities={data?.modalities || []} onClose={() => setTrialOpen(false)} />
       )}
     </>
   );

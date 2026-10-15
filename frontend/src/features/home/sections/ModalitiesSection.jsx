@@ -10,16 +10,6 @@ export default function ModalitiesSection({ data, error, onRetry, onTrial }) {
           title="O que move você?"
           text="Quatro maneiras de entrar em movimento. Escolha a sua e confira o acesso em cada plano."
         />
-        {data?.demo && (
-          <p className="catalog-status" role="status">
-            Catálogo demonstrativo • planos, aulas e horários ilustrativos.
-            {data.source === 'offline-demo' && (
-              <button className="text-button" onClick={onRetry}>
-                Atualizar catálogo
-              </button>
-            )}
-          </p>
-        )}
         {error ? (
           <div className="error-panel" role="alert">
             <p>{error}</p>

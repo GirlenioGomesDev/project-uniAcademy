@@ -2,14 +2,15 @@ export default function PrivacyNotice() {
   return (
     <div className="privacy-content">
       <p>
-        Esta é uma demonstração acadêmica. No modo demonstrativo, o formulário apenas simula a
-        solicitação: não armazena dados e não envia mensagens. Utilize informações fictícias.
+        Este é um projeto acadêmico com cadastro integrado. Ao enviar o formulário, os dados são
+        transmitidos ao serviço e armazenados para atender à solicitação. Utilize informações
+        fictícias nos testes. Não há envio automático de mensagens ou abertura do WhatsApp.
       </p>
       <h4>Finalidade e dados</h4>
       <p>
-        Em uma operação real, nome, telefone, e-mail e modalidade serão utilizados para responder ao
-        pedido de aula experimental, mediante a autorização apresentada no formulário. Não são
-        solicitados dados de saúde.
+        Nome, telefone, e-mail e modalidade são utilizados para responder ao pedido de aula
+        experimental, mediante a autorização apresentada no formulário. Não são solicitados dados de
+        saúde.
       </p>
       <h4>Seus direitos</h4>
       <p>
@@ -22,8 +23,8 @@ export default function PrivacyNotice() {
       <p>
         As fotos ilustrativas são carregadas de um provedor externo, que recebe dados técnicos da
         conexão. As fontes são hospedadas no próprio site. Não utilizamos rastreadores
-        publicitários. Links de mapas e WhatsApp somente são abertos quando acionados. No modo real,
-        o WhatsApp receberá nome e modalidade ao continuar o atendimento.
+        publicitários. Links de mapas e WhatsApp somente são abertos quando acionados. O cadastro
+        experimental não depende desses serviços nem envia o formulário para eles.
       </p>
       <p>
         A retenção e a exclusão precisam ser definidas e implementadas pelo responsável antes da

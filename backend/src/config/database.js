@@ -1,5 +1,14 @@
 import mysql from 'mysql2/promise';
+import { readFileSync } from 'node:fs';
 import { env } from './env.js';
+
+const sslConfig = env.DB_SSL
+  ? {
+      ca: readFileSync(new URL('../../certs/aiven-ca.pem', import.meta.url), 'utf8'),
+      rejectUnauthorized: true,
+    }
+  : undefined;
+
 export const pool = mysql.createPool({
   host: env.DB_HOST,
   port: env.DB_PORT,
@@ -13,5 +22,5 @@ export const pool = mysql.createPool({
   decimalNumbers: true,
   charset: 'utf8mb4',
   timezone: 'Z',
-  ...(env.DB_SSL ? { ssl: { rejectUnauthorized: true } } : {}),
+  ...(sslConfig ? { ssl: sslConfig } : {}),
 });

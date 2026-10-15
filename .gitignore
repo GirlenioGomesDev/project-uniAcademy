@@ -9,3 +9,6 @@ test-results/
 playwright-report/
 coverage/
 *.log
+backup_uniacademy.sql
+backup_uniacademy_restore.sql
+backend/.env.local.backup

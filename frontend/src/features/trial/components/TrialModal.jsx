@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import { X, ArrowUpRight, CheckCircle } from 'lucide-react';
 import useTrialRequest from '../hooks/useTrialRequest';
 import PrivacyNotice from '../../../components/ui/PrivacyNotice';
-export default function TrialModal({ modalities, onClose, demo = false }) {
+export default function TrialModal({ modalities, onClose }) {
   const dialog = useRef(null);
-  const { state, error, result, submit } = useTrialRequest(demo);
+  const { state, error, result, submit } = useTrialRequest();
   useEffect(() => {
     dialog.current.showModal();
     const previous = document.body.style.overflow;
@@ -30,35 +30,34 @@ export default function TrialModal({ modalities, onClose, demo = false }) {
       {state === 'success' ? (
         <div role="status">
           <CheckCircle className="accent" />
+          <h3>Cadastro realizado com sucesso!</h3>
+          <p>Sua solicitação #{result.id} foi registrada.</p>
           <p>
-            {result.demo
-              ? 'Simulação concluída. Nenhum dado foi armazenado ou enviado ao WhatsApp.'
-              : `Solicitação #${result.id} registrada. A equipe confirma a disponibilidade pelo WhatsApp.`}
+            Nossa equipe poderá entrar em contato pelos dados informados para confirmar a
+            disponibilidade.
           </p>
-          {result.whatsapp_url && (
-            <a
-              className="button primary"
-              href={result.whatsapp_url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Continuar no WhatsApp <ArrowUpRight />
-            </a>
-          )}
+          <button type="button" className="button primary" onClick={onClose}>
+            Concluir
+          </button>
         </div>
       ) : (
         <form onSubmit={submit}>
           <p className="muted">
-            {demo
-              ? 'Demonstração: use dados fictícios. O formulário simula o envio sem armazenar ou transmitir suas informações.'
-              : 'Gratuita. Sem compromisso. Escolha sua modalidade.'}
+            Escolha sua modalidade. Ao enviar, os dados serão cadastrados para atender à sua
+            solicitação. Neste projeto acadêmico, utilize informações fictícias.
           </p>
+          {!modalities.length && (
+            <p className="error" role="status">
+              Aguarde o catálogo de modalidades. Se não carregar, feche o formulário e tente
+              atualizar o catálogo.
+            </p>
+          )}
           <label>
             Nome completo
             <input name="client_name" autoComplete="name" required minLength={3} maxLength={120} />
           </label>
           <label>
-            WhatsApp com DDD
+            Telefone com DDD
             <input
               name="phone"
               autoComplete="tel"
@@ -95,12 +94,8 @@ export default function TrialModal({ modalities, onClose, demo = false }) {
               {error}
             </p>
           )}
-          <button className="button primary" disabled={state === 'loading'}>
-            {state === 'loading'
-              ? 'Enviando…'
-              : demo
-                ? 'Simular solicitação'
-                : 'Solicitar aula experimental'}{' '}
+          <button className="button primary" disabled={state === 'loading' || !modalities.length}>
+            {state === 'loading' ? 'Enviando…' : 'Solicitar aula experimental'}{' '}
             <ArrowUpRight size={18} />
           </button>
           <small>A solicitação não garante uma reserva.</small>

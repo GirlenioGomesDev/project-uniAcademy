@@ -59,8 +59,8 @@ export default function Footer({ contact }) {
             <p>
               Este site apresenta um projeto acadêmico. Valores, contatos, endereço, profissionais e
               horários são demonstrativos. Nenhuma solicitação de teste confirma matrícula, cobrança
-              ou reserva. Imagens ilustrativas não representam uma unidade física real. O modo
-              demonstrativo não envia dados pessoais.
+              ou reserva. Imagens ilustrativas não representam uma unidade física real. O formulário
+              cadastra os dados enviados; nos testes, utilize somente informações fictícias.
             </p>
           </div>
         </details>
