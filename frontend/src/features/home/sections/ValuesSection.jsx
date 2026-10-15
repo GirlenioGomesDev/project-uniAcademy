@@ -4,7 +4,7 @@ export default function ValuesSection() {
   return (
     <section className="dark section values">
       <div className="container">
-        <span className="eyebrow">O JEITO UNIACADEMY</span>
+        <span className="eyebrow">02 / O JEITO UNIACADEMY</span>
         <div className="three-grid">
           {[
             [

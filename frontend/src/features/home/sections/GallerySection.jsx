@@ -6,6 +6,7 @@ export default function GallerySection() {
     <section id="estrutura" className="section">
       <div className="container">
         <SectionTitle
+          number="06"
           label="NOSSA ESTRUTURA"
           title={
             <>

@@ -5,7 +5,7 @@ export default function FaqSection() {
     <section className="section">
       <div className="container faq">
         <div>
-          <span className="eyebrow">SEM DÚVIDA</span>
+          <span className="eyebrow">09 / SEM DÚVIDA</span>
           <h2>
             Antes do
             <br />

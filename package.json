@@ -9,12 +9,10 @@
     "dev": "concurrently -n API,WEB \"npm run dev -w backend\" \"npm run dev -w frontend\"",
     "build": "npm run build -w frontend",
     "test": "npm test -w backend",
-    "test:ui": "playwright test",
-    "format": "prettier --write frontend/src frontend/test frontend/vite.config.js backend/src backend/test shared playwright.config.js",
-    "format:check": "prettier --check frontend/src frontend/test frontend/vite.config.js backend/src backend/test shared playwright.config.js"
+    "format": "prettier --write frontend/src frontend/vite.config.js backend/src backend/test",
+    "format:check": "prettier --check frontend/src frontend/vite.config.js backend/src backend/test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.64.1",
     "concurrently": "^9.2.0",
     "prettier": "^3.9.10"
   }

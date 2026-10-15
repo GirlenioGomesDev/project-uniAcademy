@@ -6,20 +6,11 @@ export default function ModalitiesSection({ data, error, onRetry, onTrial }) {
     <section id="modalidades" className="section">
       <div className="container">
         <SectionTitle
+          number="03"
           label="MODALIDADES"
           title="O que move você?"
           text="Quatro maneiras de entrar em movimento. Escolha a sua e confira o acesso em cada plano."
         />
-        {data?.demo && (
-          <p className="catalog-status" role="status">
-            Catálogo demonstrativo • planos, aulas e horários ilustrativos.
-            {data.source === 'offline-demo' && (
-              <button className="text-button" onClick={onRetry}>
-                Atualizar catálogo
-              </button>
-            )}
-          </p>
-        )}
         {error ? (
           <div className="error-panel" role="alert">
             <p>{error}</p>
@@ -35,9 +26,10 @@ export default function ModalitiesSection({ data, error, onRetry, onTrial }) {
           </div>
         ) : (
           <div className="four-grid modalities">
-            {data.modalities.map((m) => (
+            {data.modalities.map((m, i) => (
               <article key={m.id}>
                 <img src={m.image_url} alt={`Imagem ilustrativa de ${m.name}`} loading="lazy" />
+                <span className="card-number">0{i + 1}</span>
                 <h3>{m.name}</h3>
                 <p className="muted">{m.description}</p>
                 <small>{m.schedule_summary}</small>

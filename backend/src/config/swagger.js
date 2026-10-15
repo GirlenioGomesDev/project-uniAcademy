@@ -143,16 +143,13 @@ export const openapi = swaggerJsdoc({
           properties: {
             id: {
               type: 'integer',
-              nullable: true,
               example: 1,
             },
             status: {
               type: 'string',
-              enum: ['pending', 'demo'],
+              enum: ['pending'],
               example: 'pending',
             },
-            demo: { type: 'boolean' },
-            stored: { type: 'boolean' },
             message: {
               type: 'string',
               example: 'Solicitação cadastrada com sucesso!',
@@ -198,7 +195,7 @@ export const openapi = swaggerJsdoc({
             },
             database: {
               type: 'string',
-              enum: ['connected', 'demo'],
+              enum: ['connected'],
             },
           },
         },
@@ -225,16 +222,12 @@ export const openapi = swaggerJsdoc({
         post: {
           summary: 'Cadastra solicitação de aula experimental',
           description:
-            'No modo real, valida os dados e armazena a solicitação no MySQL, sem exigir WhatsApp ou Instagram. No modo demonstrativo, não grava dados. A solicitação real permanece pendente de confirmação.',
+            'Valida os dados e armazena a solicitação no MySQL. Não exige WhatsApp nem Instagram. A solicitação permanece pendente de confirmação.',
           requestBody: {
             required: true,
             ...json(ref('TrialInput')),
           },
           responses: {
-            200: {
-              description: 'Simulação demonstrativa sem gravação no banco',
-              ...json(ref('TrialResult')),
-            },
             201: {
               description:
                 'Solicitação armazenada com sucesso no banco de dados',

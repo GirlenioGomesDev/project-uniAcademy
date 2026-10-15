@@ -5,7 +5,7 @@ export default function CtaSection({ onTrial }) {
     <section className="cta section">
       <div className="container cta-layout">
         <div>
-          <span className="eyebrow">SEU PRIMEIRO MOVIMENTO</span>
+          <span className="eyebrow">10 / SEU PRIMEIRO MOVIMENTO</span>
           <h2>
             Você traz a vontade.
             <br />A gente começa junto.

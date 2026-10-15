@@ -6,22 +6,11 @@ async function request(path, options = {}) {
     headers: { 'Content-Type': 'application/json', ...options.headers },
     signal: options.signal ? AbortSignal.any([options.signal, timeout]) : timeout,
   });
-  const data = await response.json().catch(() => {
-    throw new Error('Resposta inválida do serviço.');
-  });
+  const data = await response.json().catch(() => ({}));
   if (!response.ok)
     throw new Error(data.error?.message || 'Não foi possível concluir. Tente novamente.');
   return data;
 }
-export const getSiteData = async (signal) => {
-  const data = await request('/site-data', { signal });
-  if (
-    !Array.isArray(data.plans) ||
-    !Array.isArray(data.modalities) ||
-    !Array.isArray(data.schedules)
-  )
-    throw new Error('Catálogo inválido.');
-  return data;
-};
+export const getSiteData = (signal) => request('/site-data', { signal });
 export const submitTrial = (data) =>
   request('/trial-request', { method: 'POST', body: JSON.stringify(data) });
