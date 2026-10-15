@@ -20,22 +20,11 @@ export default function useTrialRequest(demo = false) {
       return;
     }
 
-    // Open within the user gesture; only navigate after successful persistence.
-    const popup = window.open('about:blank', '_blank');
-    if (popup) popup.opener = null;
-
     try {
       const data = await submitTrial(fields);
       setResult(data);
       setState('success');
-      if (data.demo || !data.whatsapp_url) {
-        popup?.close();
-        return;
-      }
-      if (popup) popup.location.replace(data.whatsapp_url);
-      else window.location.assign(data.whatsapp_url);
     } catch (failure) {
-      popup?.close();
       setError(
         failure.name === 'TimeoutError'
           ? 'Tempo de conexão excedido. Tente novamente.'
