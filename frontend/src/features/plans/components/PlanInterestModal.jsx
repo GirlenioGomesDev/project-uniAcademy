@@ -1,34 +1,15 @@
-
 import { useEffect, useRef } from 'react';
-import {
-  ArrowRight,
-  ArrowLeft,
-  Check,
-  ClipboardCheck,
-  ShieldCheck,
-} from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, ClipboardCheck, ShieldCheck } from 'lucide-react';
 
 import Modal from '../../../components/ui/Modal';
-import {
-  formatCurrency,
-  getRecifeDate,
-} from '../../../config/academy';
+import { formatCurrency, getRecifeDate } from '../../../config/academy';
 import usePlanInterest from '../hooks/usePlanInterest';
 import { getPlanBenefits } from '../services/planPresentation';
 import PlanBillingSummary from './PlanBillingSummary';
 
 export default function PlanInterestModal({ plan, onClose }) {
-  const {
-    fields,
-    draft,
-    error,
-    state,
-    result,
-    update,
-    review,
-    confirm,
-    edit,
-  } = usePlanInterest(plan);
+  const { fields, draft, error, state, result, update, review, confirm, edit } =
+    usePlanInterest(plan);
 
   const heading = useRef(null);
   const dayUse = Number(plan.duration_months) === 0;
@@ -37,9 +18,7 @@ export default function PlanInterestModal({ plan, onClose }) {
   function onChange(event) {
     update(
       event.target.name,
-      event.target.type === 'checkbox'
-        ? event.target.checked
-        : event.target.value,
+      event.target.type === 'checkbox' ? event.target.checked : event.target.value,
     );
   }
 
@@ -57,20 +36,12 @@ export default function PlanInterestModal({ plan, onClose }) {
   }, [draft, result]);
 
   return (
-    <Modal
-      titleId="plan-interest-title"
-      onClose={handleClose}
-      className="plan-interest-modal"
-    >
+    <Modal titleId="plan-interest-title" onClose={handleClose} className="plan-interest-modal">
       <div className="plan-interest-layout">
         <aside className="plan-selection-summary">
-          <span className="plan-step-label">
-            SEU PRÓXIMO MOVIMENTO
-          </span>
+          <span className="plan-step-label">SEU PRÓXIMO MOVIMENTO</span>
 
-          <span className="plan-selected-tag">
-            Plano selecionado
-          </span>
+          <span className="plan-selected-tag">Plano selecionado</span>
 
           <h2 id="plan-interest-title">{plan.name}</h2>
 
@@ -79,9 +50,7 @@ export default function PlanInterestModal({ plan, onClose }) {
             <span>/{dayUse ? 'dia' : 'mês'}</span>
           </p>
 
-          <p className="plan-summary-terms">
-            {plan.payment_terms}
-          </p>
+          <p className="plan-summary-terms">{plan.payment_terms}</p>
 
           <ul>
             {getPlanBenefits(plan).map((benefit) => (
@@ -103,10 +72,7 @@ export default function PlanInterestModal({ plan, onClose }) {
         </aside>
 
         <div className="plan-interest-content">
-          <div
-            className="plan-progress"
-            aria-label={`Etapa ${draft ? 2 : 1} de 2`}
-          >
+          <div className="plan-progress" aria-label={`Etapa ${draft ? 2 : 1} de 2`}>
             <span
               className={draft ? 'complete' : 'current'}
               aria-current={draft ? undefined : 'step'}
@@ -116,44 +82,28 @@ export default function PlanInterestModal({ plan, onClose }) {
 
             <i aria-hidden="true" />
 
-            <span
-              className={draft ? 'current' : ''}
-              aria-current={draft ? 'step' : undefined}
-            >
+            <span className={draft ? 'current' : ''} aria-current={draft ? 'step' : undefined}>
               2 <b>Revisão</b>
             </span>
           </div>
 
           {result ? (
-            <section
-              className="plan-preview"
-              aria-labelledby="plan-success-title"
-              role="status"
-            >
-              <ClipboardCheck
-                size={38}
-                className="plan-preview-icon"
-              />
+            <section className="plan-preview" aria-labelledby="plan-success-title" role="status">
+              <ClipboardCheck size={38} className="plan-preview-icon" />
 
-              <h3
-                id="plan-success-title"
-                ref={heading}
-                tabIndex={-1}
-              >
+              <h3 id="plan-success-title" ref={heading} tabIndex={-1}>
                 Interesse registrado com sucesso!
               </h3>
 
               <p className="plan-preview-description">
-                Sua solicitação #{result.id} foi registrada
-                para o plano {result.plan?.name || plan.name}.
+                Sua solicitação #{result.id} foi registrada para o plano{' '}
+                {result.plan?.name || plan.name}.
               </p>
 
               <div className="plan-local-notice">
                 <ShieldCheck size={21} />
                 <p>
-                  <strong>
-                    Status: aguardando confirmação.
-                  </strong>
+                  <strong>Status: aguardando confirmação.</strong>
                   <br />
                   {result.replayed
                     ? 'Esta solicitação já estava registrada. Nenhum cadastro duplicado foi criado.'
@@ -161,48 +111,28 @@ export default function PlanInterestModal({ plan, onClose }) {
                 </p>
               </div>
 
-              <p>
-                Este registro não representa matrícula
-                confirmada nem pagamento realizado.
-              </p>
+              <p>Este registro não representa matrícula confirmada nem pagamento realizado.</p>
 
               <div className="plan-form-actions">
-                <button
-                  type="button"
-                  className="button primary"
-                  onClick={onClose}
-                >
+                <button type="button" className="button primary" onClick={onClose}>
                   Fechar <Check size={17} />
                 </button>
               </div>
             </section>
           ) : draft ? (
-            <section
-              className="plan-preview"
-              aria-labelledby="plan-preview-title"
-            >
-              <ClipboardCheck
-                size={38}
-                className="plan-preview-icon"
-              />
+            <section className="plan-preview" aria-labelledby="plan-preview-title">
+              <ClipboardCheck size={38} className="plan-preview-icon" />
 
-              <h3
-                id="plan-preview-title"
-                ref={heading}
-                tabIndex={-1}
-              >
+              <h3 id="plan-preview-title" ref={heading} tabIndex={-1}>
                 Confira seu interesse no {plan.name}
               </h3>
 
               <p className="plan-preview-description">
-                Revise os dados antes de registrar
-                sua solicitação.
+                Revise os dados antes de registrar sua solicitação.
               </p>
 
               <details className="plan-review-contact">
-                <summary>
-                  Conferir dados de contato e data
-                </summary>
+                <summary>Conferir dados de contato e data</summary>
 
                 <dl className="plan-review-list">
                   <div>
@@ -221,38 +151,25 @@ export default function PlanInterestModal({ plan, onClose }) {
                   </div>
 
                   <div>
-                    <dt>
-                      {dayUse
-                        ? 'Dia da visita'
-                        : 'Início desejado'}
-                    </dt>
+                    <dt>{dayUse ? 'Dia da visita' : 'Início desejado'}</dt>
                     <dd>
                       {new Intl.DateTimeFormat('pt-BR').format(
-                        new Date(
-                          `${draft.preferred_date}T12:00:00Z`,
-                        ),
+                        new Date(`${draft.preferred_date}T12:00:00Z`),
                       )}
                     </dd>
                   </div>
                 </dl>
               </details>
 
-              <PlanBillingSummary
-                plan={plan}
-                date={draft.preferred_date}
-              />
+              <PlanBillingSummary plan={plan} date={draft.preferred_date} />
 
               <div className="plan-local-notice">
                 <ShieldCheck size={21} />
                 <p>
-                  <strong>
-                    Confirmação de interesse.
-                  </strong>
+                  <strong>Confirmação de interesse.</strong>
                   <br />
-                  Ao confirmar, seus dados serão enviados
-                  à academia para registrar seu interesse
-                  no plano. Não haverá cobrança ou
-                  matrícula automática.
+                  Ao confirmar, seus dados serão enviados à academia para registrar seu interesse no
+                  plano. Não haverá cobrança ou matrícula automática.
                 </p>
               </div>
 
@@ -272,12 +189,7 @@ export default function PlanInterestModal({ plan, onClose }) {
               )}
 
               <div className="plan-form-actions">
-                <button
-                  type="button"
-                  className="button"
-                  onClick={edit}
-                  disabled={isLoading}
-                >
+                <button type="button" className="button" onClick={edit} disabled={isLoading}>
                   <ArrowLeft size={17} />
                   Editar dados
                 </button>
@@ -289,31 +201,22 @@ export default function PlanInterestModal({ plan, onClose }) {
                   disabled={isLoading}
                   aria-busy={isLoading}
                 >
-                  {isLoading
-                    ? 'Registrando...'
-                    : 'Confirmar interesse'}
+                  {isLoading ? 'Registrando...' : 'Confirmar interesse'}
 
                   {!isLoading && <Check size={17} />}
                 </button>
               </div>
             </section>
           ) : (
-            <form
-              className="plan-interest-form"
-              onSubmit={review}
-            >
+            <form className="plan-interest-form" onSubmit={review}>
               <h3>Vamos encontrar seu ritmo.</h3>
 
               <p>
-                Preencha seus dados para revisar o
-                interesse no <strong>{plan.name}</strong>.
-                O envio acontecerá somente após sua
-                confirmação.
+                Preencha seus dados para revisar o interesse no <strong>{plan.name}</strong>. O
+                envio acontecerá somente após sua confirmação.
               </p>
 
-              <label htmlFor="plan-client-name">
-                Nome completo
-              </label>
+              <label htmlFor="plan-client-name">Nome completo</label>
 
               <input
                 id="plan-client-name"
@@ -329,9 +232,7 @@ export default function PlanInterestModal({ plan, onClose }) {
 
               <div className="plan-form-grid">
                 <div>
-                  <label htmlFor="plan-phone">
-                    Telefone com DDD
-                  </label>
+                  <label htmlFor="plan-phone">Telefone com DDD</label>
 
                   <input
                     id="plan-phone"
@@ -347,9 +248,7 @@ export default function PlanInterestModal({ plan, onClose }) {
                 </div>
 
                 <div>
-                  <label htmlFor="plan-email">
-                    E-mail
-                  </label>
+                  <label htmlFor="plan-email">E-mail</label>
 
                   <input
                     id="plan-email"
@@ -367,11 +266,7 @@ export default function PlanInterestModal({ plan, onClose }) {
 
               <div className="plan-form-grid">
                 <div>
-                  <label htmlFor="plan-date">
-                    {dayUse
-                      ? 'Dia da visita'
-                      : 'Início desejado'}
-                  </label>
+                  <label htmlFor="plan-date">{dayUse ? 'Dia da visita' : 'Início desejado'}</label>
 
                   <input
                     id="plan-date"
@@ -386,14 +281,9 @@ export default function PlanInterestModal({ plan, onClose }) {
                 </div>
               </div>
 
-              <small
-                id="plan-date-help"
-                className="plan-field-help"
-              >
-                Todos os planos: seg–sex, 06h–23h;
-                sábado, 08h–14h; domingos e feriados,
-                fechado. Datas sujeitas à confirmação
-                da equipe.
+              <small id="plan-date-help" className="plan-field-help">
+                Todos os planos: seg–sex, 06h–23h; sábado, 08h–14h; domingos e feriados, fechado.
+                Datas sujeitas à confirmação da equipe.
               </small>
 
               <label htmlFor="plan-experience">
@@ -407,24 +297,13 @@ export default function PlanInterestModal({ plan, onClose }) {
                 value={fields.experience_level}
                 onChange={onChange}
               >
-                <option value="">
-                  Prefiro informar depois
-                </option>
-                <option value="beginner">
-                  Estou começando
-                </option>
-                <option value="returning">
-                  Estou voltando a treinar
-                </option>
-                <option value="regular">
-                  Já treino com frequência
-                </option>
+                <option value="">Prefiro informar depois</option>
+                <option value="beginner">Estou começando</option>
+                <option value="returning">Estou voltando a treinar</option>
+                <option value="regular">Já treino com frequência</option>
               </select>
 
-              <label
-                className="consent"
-                htmlFor="plan-marketing-consent"
-              >
+              <label className="consent" htmlFor="plan-marketing-consent">
                 <input
                   id="plan-marketing-consent"
                   type="checkbox"
@@ -434,16 +313,12 @@ export default function PlanInterestModal({ plan, onClose }) {
                 />
 
                 <span>
-                  Aceito receber comunicações com
-                  novidades e promoções pelos contatos
-                  informados. <strong>Opcional.</strong>
+                  Aceito receber comunicações com novidades e promoções pelos contatos informados.{' '}
+                  <strong>Opcional.</strong>
                 </span>
               </label>
 
-              <label
-                className="consent"
-                htmlFor="plan-consent"
-              >
+              <label className="consent" htmlFor="plan-consent">
                 <input
                   id="plan-consent"
                   type="checkbox"
@@ -454,28 +329,19 @@ export default function PlanInterestModal({ plan, onClose }) {
                 />
 
                 <span>
-                  Autorizo o envio e o armazenamento dos
-                  dados informados para registrar meu
-                  interesse no plano e permitir o contato
-                  da academia.
+                  Autorizo o envio e o armazenamento dos dados informados para registrar meu
+                  interesse no plano e permitir o contato da academia.
                 </span>
               </label>
 
               <details className="plan-legal">
-                <summary>
-                  Informações de privacidade e termos
-                </summary>
+                <summary>Informações de privacidade e termos</summary>
 
                 <p>
-                  Ao confirmar, nome, telefone, e-mail,
-                  plano escolhido e data desejada serão
-                  enviados ao serviço da academia e
-                  armazenados para atendimento da
-                  solicitação. A autorização para
-                  comunicações promocionais é opcional.
-                  Nenhuma matrícula ou cobrança é feita
-                  nesta etapa. Para testes acadêmicos,
-                  utilize dados fictícios.
+                  Ao confirmar, nome, telefone, e-mail, plano escolhido e data desejada serão
+                  enviados ao serviço da academia e armazenados para atendimento da solicitação. A
+                  autorização para comunicações promocionais é opcional. Nenhuma matrícula ou
+                  cobrança é feita nesta etapa. Para testes acadêmicos, utilize dados fictícios.
                 </p>
               </details>
 
@@ -485,17 +351,13 @@ export default function PlanInterestModal({ plan, onClose }) {
                 </p>
               )}
 
-              <button
-                type="submit"
-                className="button primary plan-review-button"
-              >
+              <button type="submit" className="button primary plan-review-button">
                 Revisar interesse
                 <ArrowRight size={19} />
               </button>
 
               <p className="plan-form-footnote">
-                Sem cobrança e sem confirmação de
-                matrícula nesta etapa.
+                Sem cobrança e sem confirmação de matrícula nesta etapa.
               </p>
             </form>
           )}

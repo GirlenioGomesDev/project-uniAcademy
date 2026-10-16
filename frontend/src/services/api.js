@@ -1,4 +1,3 @@
-
 const base = (import.meta.env.VITE_API_URL?.trim() || '/api').replace(/\/+$/, '');
 
 // Função responsável pelas requisições HTTP.
@@ -11,9 +10,7 @@ async function request(path, options = {}) {
       'Content-Type': 'application/json',
       ...options.headers,
     },
-    signal: options.signal
-      ? AbortSignal.any([options.signal, timeout])
-      : timeout,
+    signal: options.signal ? AbortSignal.any([options.signal, timeout]) : timeout,
   });
 
   const data = await response.json().catch(() => {
@@ -21,10 +18,7 @@ async function request(path, options = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(
-      data.error?.message ||
-        'Não foi possível concluir. Tente novamente.',
-    );
+    throw new Error(data.error?.message || 'Não foi possível concluir. Tente novamente.');
   }
 
   return data;
@@ -52,11 +46,7 @@ export const submitTrial = async (data) => {
     body: JSON.stringify(data),
   });
 
-  if (
-    !result ||
-    result.status !== 'pending' ||
-    !/^[1-9]\d*$/.test(String(result.id))
-  ) {
+  if (!result || result.status !== 'pending' || !/^[1-9]\d*$/.test(String(result.id))) {
     throw new Error(
       'O serviço não confirmou o cadastro. Confira a solicitação antes de tentar novamente.',
     );
@@ -80,11 +70,7 @@ export const submitPlanInterest = async (data) => {
 
   // Somente confirma o cadastro quando a API retornar
   // um ID verdadeiro e o status esperado.
-  if (
-    !result ||
-    result.status !== 'pending' ||
-    !/^[1-9]\d*$/.test(String(result.id))
-  ) {
+  if (!result || result.status !== 'pending' || !/^[1-9]\d*$/.test(String(result.id))) {
     throw new Error(
       'O servidor não confirmou o interesse no plano. Confira a solicitação antes de tentar novamente.',
     );

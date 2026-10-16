@@ -79,7 +79,7 @@ test('interesse no Plus revisa dados sem nenhuma requisição de cadastro', asyn
   await expect(page.locator('.plan-review-list')).toContainText('Pessoa Teste');
   await expect(page.locator('.plan-review-list')).toContainText('81999999999');
   await expect(page.locator('.plan-local-notice')).toContainText(
-    'Nada foi enviado, registrado ou cobrado',
+    'Ao confirmar, seus dados serão enviados à academia',
   );
   expect(writes).toBe(0);
   await page.getByRole('button', { name: 'Editar dados' }).click();
@@ -125,7 +125,10 @@ test('Day-use diferencia data de visita e respeita o sábado 08h–14h', async (
   await page.getByRole('button', { name: 'Revisar interesse' }).click();
   await expect(page.locator('.billing-single-use')).toContainText('não tem cobrança recorrente');
   await expect(page.getByText('Próxima mensalidade prevista', { exact: true })).toHaveCount(0);
-  await page.getByRole('button', { name: 'Finalizar prévia' }).click();
+  await expect(
+    page.getByRole('button', { name: 'Confirmar interesse', exact: true }),
+  ).toBeVisible();
+  await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
