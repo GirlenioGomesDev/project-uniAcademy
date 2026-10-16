@@ -12,6 +12,7 @@ import { AppError, errorHandler } from './middleware/errors.js';
 export function createApp(service = createSiteService(siteRepository, env.WHATSAPP_NUMBER)) {
   const app = express();
   app.disable('x-powered-by');
+  app.set('trust proxy', 1);
   app.use((req, res, next) => {
     req.id = randomUUID();
     res.setHeader('X-Request-Id', req.id);
